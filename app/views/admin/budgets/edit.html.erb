@@ -4,4 +4,5 @@
 
 <h2 class="inline-block"><%= t("admin.budgets.edit.title") %></h2>
 
+<%= render Admin::Budgets::DraftingComponent.new(@budget) %>
 <%= render "/admin/budgets/form" %>
