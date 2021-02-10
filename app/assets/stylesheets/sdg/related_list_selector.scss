@@ -19,6 +19,7 @@
   .goals {
     $spacing: 0.5%;
     @include sdg-goal-list($spacing);
+    @include sdg-goal-list-expanded($spacing);
 
     legend {
       font-weight: normal;

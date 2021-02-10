@@ -257,6 +257,29 @@
   }
 }
 
+@mixin sdg-goal-list-expanded($spacing: 1ch) {
+  li {
+    min-width: $sdg-icon-min-width;
+    width: calc(100% / 17 - #{$spacing});
+
+    &[aria-checked=true] img {
+      opacity: 0.15;
+    }
+
+    &:focus {
+      outline: $outline-focus;
+    }
+
+    &:hover {
+      cursor: pointer;
+    }
+
+    .sdg-goal-icon {
+      width: 100%;
+    }
+  }
+}
+
 %sdg-goal-list {
   @include sdg-goal-list;
 }
