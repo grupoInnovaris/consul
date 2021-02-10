@@ -140,4 +140,24 @@ describe "SDG Goals", :js do
       end
     end
   end
+
+  describe "Help" do
+    scenario "has global targets to SDGs" do
+      visit sdg_help_path
+
+      click_link "7. Affordable and Clean Energy"
+
+      expect(page).to have_content "By 2030, ensure universal access to affordable"
+    end
+
+    scenario "has local targets to SDGs" do
+      create(:sdg_local_target, code: "15.1.1", title: "SDG local target sample text")
+      visit sdg_help_path
+
+      click_link "15. Life on Land"
+      click_link "Local targets"
+
+      expect(page).to have_content "SDG local target sample text"
+    end
+  end
 end

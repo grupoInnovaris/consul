@@ -1,0 +1,19 @@
+<section class="row sdg-help-content">
+  <ul class="tabs" id="help_tabs" data-deep-link="true" data-tabs>
+    <% @goals.each do |goal| %>
+      <li class="tabs-title <%= is_active?(goal) %>">
+        <%= link_to "#goal_#{goal.code}_targets_tab", "aria-selected": goal.code == 1 do %>
+          <% render SDG::Goals::IconComponent.new(goal) %>
+        <% end %>
+      </li>
+    <% end %>
+  </ul>
+
+  <div class="tabs-content" data-tabs-content="help_tabs">
+    <% @goals.each do |goal| %>
+      <div id="goal_<%= goal.code %>_targets_tab" class="tabs-panel tabs-icons <%= is_active?(goal) %>">
+        <%= render SDG::Goals::TargetsComponent.new(goal) %>
+      </div>
+    <% end %>
+  </div>
+</section>

@@ -1,0 +1,12 @@
+.sdg-help-content {
+  @include grid-column-gutter;
+
+  > .tabs {
+    $spacing: 0.5%;
+    @include sdg-goal-list-expanded($spacing);
+
+    li {
+      margin-right: $spacing;
+    }
+  }
+}
