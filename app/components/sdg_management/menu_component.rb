@@ -38,7 +38,7 @@ class SDGManagement::MenuComponent < ApplicationComponent
 
     def relatable_type_path(type)
       {
-        controller: "sdg_management/relations",
+        controller: "/sdg_management/relations",
         action: :index,
         relatable_type: type.tableize
       }
