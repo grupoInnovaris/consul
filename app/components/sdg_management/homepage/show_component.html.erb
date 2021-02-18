@@ -1,5 +1,16 @@
 <%= header %>
 
+<section class="sdg-header">
+  <header>
+    <h3><%= t("sdg_management.homepage.header.title") %></h3>
+    <%= link_to t("sdg_management.homepage.header.create"), new_sdg_management_web_section_widget_card_path(sdg_web_section) %>
+  </header>
+  <%= render Admin::Widget::Cards::TableComponent.new(
+    cards,
+    no_cards_message: t("sdg_management.homepage.header.no_cards")
+  ) %>
+</section>
+
 <% phases.each do |phase| %>
   <section class="phase-cards <%= phase.kind %>-cards">
     <header>

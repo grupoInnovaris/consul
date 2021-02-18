@@ -1,13 +1,18 @@
 class SDGManagement::Homepage::ShowComponent < ApplicationComponent
   include Header
 
-  attr_reader :phases
+  attr_reader :phases, :cards
 
-  def initialize(phases)
+  def initialize(phases, cards)
     @phases = phases
+    @cards = cards
   end
 
   private
+
+    def sdg_web_section
+      @sdg_web_section ||= WebSection.find_by!(name: "sdg")
+    end
 
     def title
       t("sdg_management.homepage.title")
