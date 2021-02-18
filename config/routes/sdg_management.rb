@@ -6,6 +6,10 @@ namespace :sdg_management do
   resources :local_targets, except: [:show]
   resource :homepage, controller: :homepage, only: [:show]
 
+  resources :web_sections, only: [] do
+    resources :cards, controller: "web_sections/cards", except: [:index, :show], as: :widget_cards
+  end
+
   resources :phases, only: [], as: :sdg_phases do
     resources :cards, except: [:index, :show], as: :widget_cards
   end

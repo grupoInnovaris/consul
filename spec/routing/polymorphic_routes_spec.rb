@@ -204,6 +204,15 @@ describe "Polymorphic routes" do
         sdg_management_sdg_phase_widget_card_path(phase, card)
       )
     end
+
+    it "routes WebSections widget cards" do
+      sdg_web_section = WebSection.find_by!(name: "sdg")
+      card = create(:widget_card, cardable: sdg_web_section)
+
+      expect(sdg_management_polymorphic_path(card)).to eq(
+        sdg_management_web_section_widget_card_path(sdg_web_section, card)
+      )
+    end
   end
 end
 
