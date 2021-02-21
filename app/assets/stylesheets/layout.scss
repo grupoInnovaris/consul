@@ -16,6 +16,7 @@
 // 15. Comments
 // 16. Flags
 // 17. Activity
+// 18. Banners
 // 19. Recommendations
 // 20. Documents
 // 21. Related content
@@ -581,8 +582,22 @@ body > header,
 }
 
 .top-bar {
-  background-color: inherit;
-  padding: 0;
+  background: linear-gradient(to right,#fa6200,#ffc514)!important;
+  color: #fff;
+  padding-bottom: 0;
+  padding-top: 0;
+
+  @include breakpoint(medium) {
+    padding: 0;
+  }
+
+  ul {
+    background: none;
+    padding-right: rem-calc(15);
+  }
+
+  .menu .menu-text {
+    padding: 0;
 
   @include breakpoint(medium) {
     justify-content: flex-start;
