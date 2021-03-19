@@ -348,8 +348,6 @@ ActiveRecord::Schema.define(version: 2021_11_03_112944) do
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
     t.string "name"
-    t.string "main_link_text"
-    t.string "main_link_url"
     t.index ["budget_id"], name: "index_budget_translations_on_budget_id"
     t.index ["locale"], name: "index_budget_translations_on_locale"
   end
@@ -1013,6 +1011,14 @@ ActiveRecord::Schema.define(version: 2021_11_03_112944) do
     t.index ["user_id"], name: "index_organizations_on_user_id"
   end
 
+  create_table "participants", force: :cascade do |t|
+    t.integer "user_id"
+    t.string "taggable_type"
+    t.integer "taggable_id"
+    t.datetime "created_at", null: false
+    t.datetime "updated_at", null: false
+  end
+
   create_table "poll_answers", id: :serial, force: :cascade do |t|
     t.integer "question_id"
     t.integer "author_id"
@@ -1268,6 +1274,15 @@ ActiveRecord::Schema.define(version: 2021_11_03_112944) do
     t.datetime "hidden_at"
     t.datetime "ignored_at"
     t.datetime "confirmed_hide_at"
+  end
+
+  create_table "proposal_participants", force: :cascade do |t|
+    t.bigint "proposal_id"
+    t.bigint "user_id"
+    t.datetime "created_at", null: false
+    t.datetime "updated_at", null: false
+    t.index ["proposal_id"], name: "index_proposal_participants_on_proposal_id"
+    t.index ["user_id"], name: "index_proposal_participants_on_user_id"
   end
 
   create_table "proposal_translations", id: :serial, force: :cascade do |t|
@@ -1792,6 +1807,8 @@ ActiveRecord::Schema.define(version: 2021_11_03_112944) do
   add_foreign_key "poll_recounts", "poll_officer_assignments", column: "officer_assignment_id"
   add_foreign_key "poll_voters", "polls"
   add_foreign_key "polls", "budgets"
+  add_foreign_key "proposal_participants", "proposals"
+  add_foreign_key "proposal_participants", "users"
   add_foreign_key "proposals", "communities"
   add_foreign_key "related_content_scores", "related_contents"
   add_foreign_key "related_content_scores", "users"
