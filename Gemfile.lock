@@ -736,6 +736,7 @@ DEPENDENCIES
   kaminari (~> 1.2.1)
   knapsack_pro (~> 3.0.0)
   launchy (~> 2.5.0)
+  letter_opener
   letter_opener_web (~> 1.4.0)
   mdl (~> 0.11.0)
   mini_magick (~> 4.11.0)
