@@ -499,6 +499,15 @@ ActiveRecord::Schema.define(version: 2021_11_03_112944) do
     t.index ["proposal_id"], name: "index_dashboard_executed_actions_on_proposal_id"
   end
 
+  create_table "debate_participants", force: :cascade do |t|
+    t.bigint "user_id"
+    t.bigint "debate_id"
+    t.datetime "created_at", null: false
+    t.datetime "updated_at", null: false
+    t.index ["debate_id"], name: "index_debate_participants_on_debate_id"
+    t.index ["user_id"], name: "index_debate_participants_on_user_id"
+  end
+
   create_table "debate_translations", id: :serial, force: :cascade do |t|
     t.integer "debate_id", null: false
     t.string "locale", null: false
@@ -1009,6 +1018,15 @@ ActiveRecord::Schema.define(version: 2021_11_03_112944) do
     t.datetime "rejected_at"
     t.string "responsible_name", limit: 60
     t.index ["user_id"], name: "index_organizations_on_user_id"
+  end
+
+  create_table "page_participants", force: :cascade do |t|
+    t.bigint "site_customization_pages_id"
+    t.bigint "user_id"
+    t.datetime "created_at", null: false
+    t.datetime "updated_at", null: false
+    t.index ["site_customization_pages_id"], name: "index_page_participants_on_site_customization_pages_id"
+    t.index ["user_id"], name: "index_page_participants_on_user_id"
   end
 
   create_table "participants", force: :cascade do |t|
@@ -1774,6 +1792,8 @@ ActiveRecord::Schema.define(version: 2021_11_03_112944) do
   add_foreign_key "dashboard_administrator_tasks", "users"
   add_foreign_key "dashboard_executed_actions", "dashboard_actions", column: "action_id"
   add_foreign_key "dashboard_executed_actions", "proposals"
+  add_foreign_key "debate_participants", "debates"
+  add_foreign_key "debate_participants", "users"
   add_foreign_key "documents", "users"
   add_foreign_key "failed_census_calls", "poll_officers"
   add_foreign_key "failed_census_calls", "users"
@@ -1791,6 +1811,8 @@ ActiveRecord::Schema.define(version: 2021_11_03_112944) do
   add_foreign_key "moderators", "users"
   add_foreign_key "notifications", "users"
   add_foreign_key "organizations", "users"
+  add_foreign_key "page_participants", "site_customization_pages", column: "site_customization_pages_id"
+  add_foreign_key "page_participants", "users"
   add_foreign_key "poll_answers", "poll_questions", column: "question_id"
   add_foreign_key "poll_booth_assignments", "polls"
   add_foreign_key "poll_officer_assignments", "poll_booth_assignments", column: "booth_assignment_id"

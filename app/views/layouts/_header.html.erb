@@ -41,6 +41,8 @@
       </div>
     </div>
   </div>
+        
+  <% if user_signed_in? %>
 
   <div id="navigation_bar" class="subnavigation">
     <div class="hide-for-small-only">
@@ -49,4 +51,7 @@
 
     <%= yield :header_addon %>
   </div>
+
+  <% end %>
+
 </header>
