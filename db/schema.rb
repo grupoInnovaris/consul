@@ -1025,6 +1025,7 @@ ActiveRecord::Schema.define(version: 2021_11_03_112944) do
     t.bigint "user_id"
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
+    t.string "slug"
     t.index ["site_customization_pages_id"], name: "index_page_participants_on_site_customization_pages_id"
     t.index ["user_id"], name: "index_page_participants_on_user_id"
   end

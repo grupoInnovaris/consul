@@ -9,6 +9,7 @@
 <% end %>
 
 <main>
+<% if current_administrator? %>
   <% if @search_terms || @advanced_search_terms %>
     <%= render Shared::SearchResultsSummaryComponent.new(
       results: @debates,
@@ -84,4 +85,8 @@
     </div>
 
   </div>
+<% else %>
+ <p class="text-center"><%= t("not_authorized.title") %></p>
+ <%= back_link_to root_url %>
+<% end %>
 </main>
