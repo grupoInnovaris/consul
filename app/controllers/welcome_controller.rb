@@ -5,7 +5,7 @@ class WelcomeController < ApplicationController
   before_action :set_user_recommendations, only: :index, if: :current_user
   before_action :authenticate_user!, only: :welcome
 
-  layout "devise", only: :welcome
+  layout "devise", only: [:welcome, :verification]
 
   def index
     @header = Widget::Card.header.first
@@ -24,6 +24,13 @@ class WelcomeController < ApplicationController
     else
       redirect_to page_path("welcome_not_verified")
     end
+  end
+
+  def recomendations
+  end
+
+  def verification
+    redirect_to verification_path if signed_in?
   end
 
   private
