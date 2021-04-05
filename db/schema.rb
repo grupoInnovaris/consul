@@ -1542,6 +1542,7 @@ ActiveRecord::Schema.define(version: 2021_11_03_112944) do
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
     t.string "locale"
+    t.boolean "public"
   end
 
   create_table "stats_versions", id: :serial, force: :cascade do |t|
