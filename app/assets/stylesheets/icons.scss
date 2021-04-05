@@ -234,6 +234,10 @@
   content: "\f16d";
 }
 
+.icon-linkedin::before {
+  content: "\f0e1";
+}
+
 .icon-image::before {
   content: "\f03e";
   font-weight: normal;
@@ -273,11 +277,11 @@
 }
 
 .icon-facebook,
+.icon-linkedin,
 .icon-instagram,
 .icon-telegram,
 .icon-twitter,
 .icon-youtube {
-
   &::before {
     font-family: "Font Awesome 5 Brands";
   }
