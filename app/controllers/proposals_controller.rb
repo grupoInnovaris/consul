@@ -40,7 +40,6 @@ class ProposalsController < ApplicationController
 
   # JHH:
   def load_participants
-
     @participants = User.all
   end
   #Fin
