@@ -140,8 +140,88 @@ $sdg-colors: (
   14: #0a97d9,
   15: #56c02b,
   16: #00689d,
-  17: #19486a
+  17: #19486a,
 ) !default;
+
+// 2. Foundation settings overrides
+// ---------------------------------
+
+$black: #222;
+$white: #fdfdfd;
+
+$body-font-family: "Source Sans Pro", "Helvetica", "Arial", sans-serif !important;
+
+$header-font-family: $body-font-family;
+
+$global-radius: rem-calc(3);
+
+$button-radius: $global-radius;
+
+$font-family-serif: Georgia, "Times New Roman", Times, serif;
+
+$header-styles: (
+  small: (
+    "h1": (
+      "font-size": 34,
+    ),
+    "h2": (
+      "font-size": 24,
+    ),
+    "h3": (
+      "font-size": 20,
+    ),
+    "h4": (
+      "font-size": 18,
+    ),
+    "h5": (
+      "font-size": 16,
+    ),
+    "h6": (
+      "font-size": 14,
+    ),
+  ),
+  medium: (
+    "h1": (
+      "font-size": 44,
+    ),
+    "h2": (
+      "font-size": 34,
+    ),
+    "h3": (
+      "font-size": 24,
+    ),
+    "h4": (
+      "font-size": 19,
+    ),
+    "h5": (
+      "font-size": 16,
+    ),
+    "h6": (
+      "font-size": 13,
+    ),
+  ),
+);
+
+$small-font-size: rem-calc(14);
+
+$abbr-underline: none;
+
+$tab-background-active: $white;
+
+$accordion-item-color: foreground($accordion-background, $text);
+$accordion-content-color: foreground($accordion-background, $text);
+
+$tab-item-font-size: $base-font-size;
+$tab-item-padding: $line-height / 2 0;
+$tab-content-border: $border;
+
+$orbit-bullet-diameter: 0.8rem;
+
+$pagination-radius: $global-radius;
+
+$show-header-for-stacked: true;
+
+$tooltip-background-color: $brand;
 
 // 3. Foundation overrides depending on CONSUL variables
 // -----------------------------------------------------

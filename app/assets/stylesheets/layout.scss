@@ -37,6 +37,11 @@ html {
   font-size: calc(0.25em + Max(0.75em, 0.75vw));
 }
 
+::selection {
+  color: #fff;
+  background-color: $brand;
+}
+
 html,
 body {
   margin: 0;
@@ -587,8 +592,8 @@ body > header,
 }
 
 .top-bar {
-  background: linear-gradient(to right, #fa6200, #ffc514) !important;
-  color: #fff;
+  background: $top-color !important;
+  color: black;
   padding-bottom: 0;
   padding-top: 0;
 
@@ -670,6 +675,7 @@ body > header,
 
   .has-submenu {
     &.is-active a {
+      color: black;
       font-weight: bold;
     }
   }
@@ -1106,7 +1112,7 @@ footer {
   position: relative;
 
   label {
-    color: #fff;
+    color: black;
     font-size: $tiny-font-size;
     font-weight: normal;
   }
@@ -1689,7 +1695,6 @@ table {
 }
 
 @include breakpoint(medium) {
-
   .ssb-telegram,
   .ssb-whatsapp_app {
     display: none !important;
