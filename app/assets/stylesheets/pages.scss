@@ -31,7 +31,7 @@
 }
 
 .lead {
-  font-size: rem-calc(24);
+  font-size: rem-calc(38);
 }
 
 // 03. Navigation
@@ -55,7 +55,6 @@
 // ----------------------
 
 .more-info-content {
-
   h3 {
     @include brand-text;
   }
@@ -107,7 +106,6 @@
 // ----------------------
 
 .more-info-sidebar {
-
   .sidebar-card {
     border: 1px solid $border;
     margin-bottom: $line-height;
