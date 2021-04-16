@@ -18,6 +18,12 @@ class Moderation::UsersController < Moderation::BaseController
     redirect_with_query_params_to index_path_options, { notice: I18n.t("moderation.users.notice_block") }
   end
 
+  def show_in_moderation_screen
+    unblock_user
+
+    redirect_with_query_params_to({ action: :index }, { notice: I18n.t("moderation.users.notice_show") })
+  end
+
   private
 
     def load_users
@@ -32,6 +38,11 @@ class Moderation::UsersController < Moderation::BaseController
     def block_user
       @user.block
       Activity.log(current_user, :block, @user)
+    end
+
+    def unblock_user
+      @user.show_user
+      Activity.log(current_user, :show, @user)
     end
 
     def index_path_options
