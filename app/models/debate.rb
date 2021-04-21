@@ -206,6 +206,20 @@ class Debate < ApplicationRecord
     orders
   end
 
+  def self.search(search)
+    if search
+        #debates = Debate.all.where("title ilike ?", "%#{search}%")
+        if debates.nil? || debates.empty?
+            debates = Debate.all
+        else
+            debates
+        end
+    else
+        debates = Debate.all
+    end
+    debates
+  end
+
   def description_length
     real_description_length = ActionView::Base.full_sanitizer.sanitize(description.to_s).squish.length
 
