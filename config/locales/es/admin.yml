@@ -781,6 +781,7 @@ es:
       debates: "Debates"
       comments: "Comentarios"
       local_census_records: Gestionar censo local
+      projects: Proyectos
       machine_learning: "IA / Machine learning"
     administrators:
       index:
