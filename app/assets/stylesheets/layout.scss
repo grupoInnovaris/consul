@@ -45,6 +45,7 @@ html {
 html,
 body {
   margin: 0;
+  letter-spacing: 2px !important;
 }
 
 html {
@@ -55,6 +56,7 @@ body {
   display: flex;
   flex-direction: column;
   font-size: $base-font-size;
+  letter-spacing: 2px !important;
   min-height: 100%;
 
   &.public {
