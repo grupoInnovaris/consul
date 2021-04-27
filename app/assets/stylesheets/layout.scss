@@ -1010,7 +1010,7 @@ footer {
   clear: both;
   margin-top: $line-height * 2;
   padding-bottom: $line-height;
-  padding-top: $line-height;
+  min-height: $line-height * 20;
 
   .public & {
     @include full-width-background;
