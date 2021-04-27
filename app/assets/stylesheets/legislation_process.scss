@@ -51,7 +51,6 @@
     vertical-align: top;
 
     @include breakpoint(large down) {
-
       &::after {
         content: "\63";
         font-family: "icons" !important;
@@ -169,7 +168,6 @@
 // ---------------
 
 .debate-questions {
-
   .comments {
     margin-top: $line-height * 2.5;
   }
@@ -252,7 +250,7 @@
       display: inline-block;
       margin-bottom: $line-height / 2;
       margin-right: $line-height;
-      padding: $line-height / 2  $line-height * 2;
+      padding: $line-height / 2 $line-height * 2;
       position: relative;
     }
 
@@ -301,7 +299,6 @@
   padding: rem-calc(32) 0;
 
   .draft-chooser {
-
     h3 {
       vertical-align: top;
       display: inline-block;
@@ -351,7 +348,6 @@
   }
 
   .draft-allegation {
-
     @include breakpoint(medium) {
       display: flex;
 
@@ -569,7 +565,6 @@
           margin-bottom: 0;
         }
       }
-
     }
 
     .calc-comments {
@@ -699,7 +694,6 @@
           }
 
           .comment-meta {
-
             .comment-more-info {
               display: inline-block;
 
@@ -743,7 +737,6 @@
 // -----------------
 
 .legislation-changes {
-
   ul {
     list-style: none;
     margin-left: 0;
@@ -768,7 +761,6 @@
     }
 
     a {
-
       span {
         text-decoration: underline;
       }
@@ -794,7 +786,6 @@
 // -----------------
 
 .legislation-comments {
-
   .comment-section {
     background: #fafafa;
     padding: rem-calc(16);
@@ -839,7 +830,6 @@
 // -----------------
 
 .legislation-comment {
-
   .annotation-share-comment {
     margin-bottom: rem-calc(32);
   }
@@ -853,7 +843,6 @@
   }
 
   .comment {
-
     a {
       span {
         text-decoration: underline;
@@ -887,7 +876,6 @@
 // -------------------------
 
 .proposal-show {
-
   &.legislation-proposal-show h1 {
     font-size: rem-calc(24);
 

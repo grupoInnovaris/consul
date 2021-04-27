@@ -14,6 +14,116 @@
 // 01. Votes and supports
 // ----------------------
 
+@mixin votes {
+  border-top: 1px solid $border;
+  margin-top: $line-height;
+  padding: $line-height / 2 0;
+  position: relative;
+
+  @include breakpoint(medium) {
+    border-left: 1px solid $border;
+    border-top: 0;
+    margin-top: 0;
+  }
+
+  .icon-like,
+  .icon-unlike {
+    background: #fff;
+    border: 2px solid $text-light;
+    border-radius: rem-calc(3);
+    color: $text-light;
+    display: inline-block;
+    font-size: rem-calc(30);
+    line-height: rem-calc(30);
+    padding: rem-calc(3) rem-calc(6);
+    position: relative;
+
+    &:hover,
+    &:active {
+      color: black;
+      cursor: pointer;
+      opacity: 1 !important;
+    }
+  }
+
+  .icon-like {
+    &:hover,
+    &:active {
+      background: $like;
+      border: 2px solid $like;
+    }
+  }
+
+  .icon-unlike {
+    &:hover,
+    &:active {
+      background: $unlike;
+      border: 2px solid $unlike;
+    }
+  }
+
+  .like,
+  .unlike {
+    line-height: rem-calc(48);
+    vertical-align: super;
+    text-decoration: none;
+
+    .percentage {
+      color: $text;
+      display: inline-block;
+      font-size: $small-font-size;
+      line-height: $line-height * 2;
+      padding-right: $line-height / 2;
+      vertical-align: top;
+
+      @include breakpoint(medium) {
+        display: block;
+        line-height: $line-height;
+        padding-right: 0;
+      }
+    }
+  }
+
+  .voted {
+    .icon-like,
+    .icon-unlike {
+      color: #fff;
+    }
+
+    .icon-like {
+      background: $like;
+      border: 2px solid $like;
+    }
+
+    .icon-unlike {
+      background: $unlike;
+      border: 2px solid $unlike;
+    }
+  }
+
+  .no-voted {
+    .icon-like,
+    .icon-unlike {
+      opacity: 0.3;
+    }
+  }
+
+  .total-votes {
+    font-weight: bold;
+    float: right;
+    line-height: $line-height * 2;
+
+    @include breakpoint(medium) {
+      display: block;
+      float: none;
+    }
+  }
+
+  .divider {
+    margin: 0 rem-calc(6);
+  }
+}
+
 @mixin supports {
   padding: $line-height 0;
   position: relative;
@@ -125,6 +235,35 @@
 // 02. New participation
 // ---------------------
 
+.debate-form,
+.proposal-form,
+.budget-investment-form,
+.document-form,
+.topic-new,
+.topic-form {
+  .icon-debates,
+  .icon-proposals,
+  .icon-budget,
+  .icon-image {
+    font-size: rem-calc(50);
+    line-height: $line-height;
+    opacity: 0.5;
+  }
+
+  .icon-debates {
+    color: $debates;
+  }
+
+  .icon-proposals,
+  .icon-image {
+    color: $proposals;
+  }
+
+  .icon-budget {
+    color: $budget;
+  }
+}
+
 .recommendations {
   list-style-type: none;
   margin-left: 0;
@@ -137,6 +276,21 @@
     &::before {
       margin-right: $font-icon-margin * 1.5;
     }
+  }
+}
+
+.debate-form {
+  .recommendations li::before {
+    color: $debates;
+  }
+}
+
+.proposal-form,
+.document-form,
+.topic-form,
+.topic-new {
+  .recommendations li::before {
+    color: $proposals;
   }
 }
 
@@ -169,7 +323,6 @@
 .communities-show,
 .topic-show,
 .milestone-content {
-
   h1,
   p {
     word-wrap: break-word;
@@ -219,7 +372,6 @@
 
   ul,
   ol {
-
     li {
       font-size: rem-calc(15);
       margin-bottom: rem-calc(15);
@@ -232,7 +384,6 @@
   }
 
   .geozone {
-
     li {
       display: inline-block;
       margin-bottom: 0;
@@ -255,7 +406,6 @@
   }
 
   aside {
-
     h2 {
       border-top: 2px solid $brand;
       display: inline-block;
@@ -315,7 +465,6 @@
 
   .tags,
   .sdg-target-tag-list {
-
     a {
       margin-right: rem-calc(6);
     }
@@ -336,7 +485,6 @@
 
 .proposal-show,
 .budget-investment-show {
-
   .supports {
     padding: $line-height / 2 0 0;
   }
@@ -347,7 +495,6 @@
 }
 
 .show-actions-menu {
-
   [class^="icon-"] {
     display: inline-block;
     vertical-align: middle;
@@ -355,7 +502,6 @@
 }
 
 .additional-content {
-
   .tabs {
     background: none;
     border: 0;
@@ -375,7 +521,6 @@
 }
 
 .fixed-mobile-content {
-
   @include breakpoint(medium down) {
     background: $body-background;
     margin-bottom: rem-calc(-1) !important;
@@ -389,14 +534,12 @@
 .debates-list,
 .proposals-list,
 .budget-investments-list {
-
   @include breakpoint(medium) {
     margin-bottom: rem-calc(48);
   }
 }
 
 .budget-investments-list {
-
   @include breakpoint(medium) {
     min-height: $line-height * 15;
 
@@ -409,11 +552,8 @@
 .budget-investments-list .budget-investment,
 .proposals-list .proposal,
 .legislation-proposals .proposal {
-
   @include breakpoint(medium) {
-
     .panel {
-
       &.with-image {
         padding: 0 $line-height / 2 0 0;
       }
@@ -596,7 +736,6 @@
 .debate-show,
 .proposal-show,
 .legislation-proposals {
-
   .votes {
     border-top: 1px solid $border;
     margin-top: $line-height;
@@ -624,7 +763,6 @@
 }
 
 .legislation-proposals {
-
   .votes {
     min-height: $line-height * 8;
   }
@@ -637,7 +775,6 @@
 }
 
 .proposal {
-
   .supports {
     @include supports;
   }
@@ -645,7 +782,6 @@
 
 .budget-investment,
 .budget-investment-show {
-
   .supports {
     @include supports;
 
@@ -690,7 +826,6 @@
 }
 
 .budget-investment-show {
-
   figure {
     margin: rem-calc(10) 0 0;
     display: inline-block;
@@ -707,7 +842,6 @@
 }
 
 .proposals-summary {
-
   .panel {
     min-height: 0;
   }
@@ -720,7 +854,6 @@
 }
 
 .budget-investment-show {
-
   .label-budget-investment {
     background: none;
     clear: both;
@@ -761,7 +894,6 @@
 }
 
 .view-mode {
-
   ul {
     margin-bottom: 0;
 
@@ -789,9 +921,7 @@
   }
 
   &.default {
-
     .button {
-
       &::before {
         content: "\51";
       }
@@ -799,9 +929,7 @@
   }
 
   &.minimal {
-
     .button {
-
       &::before {
         content: "\22";
       }
@@ -846,9 +974,7 @@
 .debate,
 .proposal,
 .budget-investment {
-
   &.minimal {
-
     .panel,
     .debate-content,
     .proposal-content,
@@ -965,7 +1091,6 @@
   }
 
   .share-supported {
-
     .social-share-button .ssb-icon {
       background: none;
       color: inherit;
@@ -1086,6 +1211,33 @@
   }
 }
 
+.groups-and-headings {
+  .heading {
+    border: 1px solid $border;
+    border-radius: rem-calc(3);
+    display: inline-block;
+    margin-bottom: $line-height / 2;
+
+    a {
+      display: block;
+      padding: $line-height / 2;
+
+      &:hover {
+        background: $highlight;
+        text-decoration: none;
+      }
+    }
+
+    .heading-name {
+      padding: $line-height / 2;
+    }
+
+    span {
+      color: $text;
+      display: block;
+      font-size: $small-font-size;
+    }
+  }
 .current-phase {
   @include brand-text;
 }
@@ -1167,7 +1319,6 @@
 }
 
 .ballot {
-
   h2,
   h3 {
     font-weight: normal;
@@ -1260,6 +1411,18 @@
     }
   }
 
+    &.is-active {
+      h3 {
+        background: $budget;
+        color: #fff;
+        display: inline-block;
+      }
+
+      &::before {
+        background-color: $budget;
+      }
+    }
+  }
   h2 {
     transition: font-size 0.3s;
 
@@ -1270,9 +1433,7 @@
 }
 
 .budgets-stats {
-
   .header {
-    @include full-width-background;
     background: $highlight;
   }
 
@@ -1344,8 +1505,36 @@
 // 07. Proposals successful
 // -------------------------
 
-.successful .panel {
+.dark-heading {
+  background: #2d3e50;
+  color: #fff;
 
+  @include breakpoint(medium) {
+    padding-bottom: $line-height;
+  }
+
+  p {
+    &.title {
+      color: #ffd200;
+    }
+
+    &.title-date {
+      font-size: rem-calc(24);
+      font-weight: bold;
+    }
+  }
+
+  .info {
+    background: #314253;
+    padding-top: $line-height;
+
+    @include breakpoint(medium) {
+      border-top: rem-calc(6) solid #ffd200;
+    }
+  }
+}
+
+.successful .panel {
   .icon-successful {
     border-right: 60px solid #ffd200;
     border-top: 0;
@@ -1368,7 +1557,6 @@
 }
 
 .successful {
-
   .panel {
     position: relative;
   }
@@ -1395,6 +1583,20 @@
 .polls-show-header {
   @include full-width-background;
   background: #fafafa;
+
+  .callout {
+    &.warning a {
+      color: $color-warning;
+    }
+
+    &.primary a {
+      color: $color-info;
+    }
+
+    &.alert a {
+      color: $color-alert;
+    }
+  }
 }
 
 .poll-more-info,
@@ -1506,9 +1708,7 @@
 }
 
 .poll {
-
   &.with-image {
-
     @include breakpoint(medium) {
       padding: 0 $line-height / 2 0 0;
     }
@@ -1633,7 +1833,6 @@
 }
 
 .poll-question-answers {
-
   .button {
     margin-right: $line-height / 4;
     min-width: rem-calc(168);
@@ -1668,6 +1867,16 @@
 // ---------------------------
 
 .polls-results-stats {
+  .sidebar {
+    .menu:not(.vertical) {
+      padding: 0;
+
+      li a {
+        color: $link;
+        line-height: $line-height;
+      }
+    }
+  }
 
   table {
     table-layout: fixed;
@@ -1686,7 +1895,6 @@
     }
 
     td {
-
       &.win {
         background: #ccedf8;
         font-weight: bold;
