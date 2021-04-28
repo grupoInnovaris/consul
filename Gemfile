@@ -62,6 +62,8 @@ gem "view_component", "~> 2.49.1"
 gem "whenever", "~> 1.0.0", require: false
 gem "wicked_pdf", "~> 2.1.0"
 gem "wkhtmltopdf-binary", "~> 0.12.6"
+gem 'country_select', '~> 4.0'
+
 
 source "https://rails-assets.org" do
   gem "rails-assets-leaflet"
