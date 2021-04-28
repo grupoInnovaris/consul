@@ -69,7 +69,7 @@ $global-lineheight: 1.5 !default;
 $foundation-palette: (
   primary: #1779ba,
   secondary: #767676,
-  success: #3adb76,
+  success: rgb(255, 197, 20),
   warning: #ffae00,
   alert: #cc4b37,
 ) !default;
@@ -137,20 +137,44 @@ $header-lineheight: 1.4 !default;
 $header-margin-bottom: 0.5rem !default;
 $header-styles: (
   small: (
-    "h1": ("font-size": 24),
-    "h2": ("font-size": 20),
-    "h3": ("font-size": 19),
-    "h4": ("font-size": 18),
-    "h5": ("font-size": 17),
-    "h6": ("font-size": 16),
+    "h1": (
+      "font-size": 24,
+    ),
+    "h2": (
+      "font-size": 20,
+    ),
+    "h3": (
+      "font-size": 19,
+    ),
+    "h4": (
+      "font-size": 18,
+    ),
+    "h5": (
+      "font-size": 17,
+    ),
+    "h6": (
+      "font-size": 16,
+    ),
   ),
   medium: (
-    "h1": ("font-size": 48),
-    "h2": ("font-size": 40),
-    "h3": ("font-size": 31),
-    "h4": ("font-size": 25),
-    "h5": ("font-size": 20),
-    "h6": ("font-size": 16),
+    "h1": (
+      "font-size": 48,
+    ),
+    "h2": (
+      "font-size": 40,
+    ),
+    "h3": (
+      "font-size": 31,
+    ),
+    "h4": (
+      "font-size": 25,
+    ),
+    "h5": (
+      "font-size": 20,
+    ),
+    "h6": (
+      "font-size": 16,
+    ),
   ),
 ) !default;
 $header-text-rendering: optimizeLegibility !default;
@@ -768,24 +792,27 @@ $switch-paddle-transition: all 0.25s ease-out !default;
 // 50. Table
 // ---------
 
-$table-background: $white !default;
-$table-color-scale: 5% !default;
-$table-border: 1px solid smart-scale($table-background, $table-color-scale) !default;
-$table-padding: rem-calc(8 10 10) !default;
-$table-hover-scale: 2% !default;
-$table-row-hover: darken($table-background, $table-hover-scale) !default;
-$table-row-stripe-hover: darken($table-background, $table-color-scale + $table-hover-scale) !default;
-$table-is-striped: true !default;
-$table-striped-background: smart-scale($table-background, $table-color-scale) !default;
-$table-stripe: even !default;
-$table-head-background: smart-scale($table-background, $table-color-scale / 2) !default;
-$table-head-row-hover: darken($table-head-background, $table-hover-scale) !default;
-$table-foot-background: smart-scale($table-background, $table-color-scale) !default;
-$table-foot-row-hover: darken($table-foot-background, $table-hover-scale) !default;
-$table-head-font-color: $body-font-color !default;
-$table-foot-font-color: $body-font-color !default;
-$show-header-for-stacked: false !default;
-$table-stack-breakpoint: medium !default;
+$table-background: $white;
+$table-color-scale: 5%;
+$table-border: 1px solid smart-scale($table-background, $table-color-scale);
+$table-padding: rem-calc(8 10 10);
+$table-hover-scale: 2%;
+$table-row-hover: darken($table-background, $table-hover-scale);
+$table-row-stripe-hover: darken(
+  $table-background,
+  $table-color-scale + $table-hover-scale
+);
+$table-is-striped: true;
+$table-striped-background: smart-scale($table-background, $table-color-scale);
+$table-stripe: even;
+$table-head-background: smart-scale($table-background, $table-color-scale / 2);
+$table-head-row-hover: darken($table-head-background, $table-hover-scale);
+$table-foot-background: smart-scale($table-background, $table-color-scale);
+$table-foot-row-hover: darken($table-foot-background, $table-hover-scale);
+$table-head-font-color: $body-font-color;
+$table-foot-font-color: $body-font-color;
+$show-header-for-stacked: false;
+$table-stack-breakpoint: medium;
 
 // 51. Tabs
 // --------
