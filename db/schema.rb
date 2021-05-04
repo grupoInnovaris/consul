@@ -1117,6 +1117,15 @@ ActiveRecord::Schema.define(version: 2021_11_03_112944) do
     t.index ["user_id"], name: "index_poll_officers_on_user_id"
   end
 
+  create_table "poll_on_projects", force: :cascade do |t|
+    t.bigint "project_id"
+    t.bigint "poll_id"
+    t.datetime "created_at", null: false
+    t.datetime "updated_at", null: false
+    t.index ["poll_id"], name: "index_poll_on_projects_on_poll_id"
+    t.index ["project_id"], name: "index_poll_on_projects_on_project_id"
+  end
+
   create_table "poll_partial_results", id: :serial, force: :cascade do |t|
     t.integer "question_id"
     t.integer "author_id"
@@ -1879,6 +1888,8 @@ ActiveRecord::Schema.define(version: 2021_11_03_112944) do
   add_foreign_key "poll_answers", "poll_questions", column: "question_id"
   add_foreign_key "poll_booth_assignments", "polls"
   add_foreign_key "poll_officer_assignments", "poll_booth_assignments", column: "booth_assignment_id"
+  add_foreign_key "poll_on_projects", "polls"
+  add_foreign_key "poll_on_projects", "projects"
   add_foreign_key "poll_partial_results", "poll_booth_assignments", column: "booth_assignment_id"
   add_foreign_key "poll_partial_results", "poll_officer_assignments", column: "officer_assignment_id"
   add_foreign_key "poll_partial_results", "poll_questions", column: "question_id"
