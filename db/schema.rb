@@ -1322,6 +1322,8 @@ ActiveRecord::Schema.define(version: 2021_11_03_112944) do
     t.string "title"
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
+    t.boolean "public"
+    t.integer "geozone_id"
   end
 
   create_table "proposal_notifications", id: :serial, force: :cascade do |t|
