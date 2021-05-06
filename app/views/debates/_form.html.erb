@@ -1,6 +1,6 @@
 <%= render Debates::FormComponent.new(@debate) %>
 <%= render "shared/globalize_locales", resource: @debate %>
-<% if current_administrator? %>
+<% if current_administrator? || current_user.id == @debate.author_id %>
   <%= render "shared/globalize_locales", resource: @debate %>
 
   <%= translatable_form_for(@debate) do |f| %>
@@ -59,12 +59,12 @@
 
           <br/>
           <%= f.text_field :debate_users_id, :label => t("debates.form.add_participants"), placeholder: t("proposals.form.participant_placeholder")%>
-          
+
           <br/>
           <% if !@people.empty? %>
             <%= f.text_field :delete_debate_users_id, :label => t("debates.form.delete_participants"), placeholder: t("proposals.form.participant_placeholder")%>
           <% end %>
-          
+
         </div>
       </div>
       <%-# ---------------------- Fin ---------------------- -%>
