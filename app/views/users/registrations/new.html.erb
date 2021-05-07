@@ -29,6 +29,8 @@
       <%= f.password_field :password_confirmation, autocomplete: "off",
                            label: t("devise_views.users.registrations.new.password_confirmation_label") %>
 
+      <%= f.collection_select :geozone_id, Geozone.all.order(id: :asc), :id, :name, selected: 0%>
+
       <% if resource.use_redeemable_code %>
         <%= f.text_field :redeemable_code %>
       <% end %>
