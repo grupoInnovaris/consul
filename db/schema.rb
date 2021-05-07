@@ -1397,6 +1397,10 @@ ActiveRecord::Schema.define(version: 2021_11_03_112944) do
     t.integer "community_id"
     t.datetime "published_at"
     t.boolean "selected", default: false
+    t.string "imagen_file_name"
+    t.string "imagen_content_type"
+    t.bigint "imagen_file_size"
+    t.datetime "imagen_updated_at"
     t.index ["author_id", "hidden_at"], name: "index_proposals_on_author_id_and_hidden_at"
     t.index ["author_id"], name: "index_proposals_on_author_id"
     t.index ["cached_votes_up"], name: "index_proposals_on_cached_votes_up"
