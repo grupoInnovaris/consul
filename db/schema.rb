@@ -1324,6 +1324,10 @@ ActiveRecord::Schema.define(version: 2021_11_03_112944) do
     t.datetime "updated_at", null: false
     t.boolean "public"
     t.integer "geozone_id"
+    t.string "imagen_file_name"
+    t.string "imagen_content_type"
+    t.bigint "imagen_file_size"
+    t.datetime "imagen_updated_at"
   end
 
   create_table "proposal_notifications", id: :serial, force: :cascade do |t|
