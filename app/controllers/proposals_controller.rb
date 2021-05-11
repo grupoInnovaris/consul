@@ -16,7 +16,7 @@ class ProposalsController < ApplicationController
 
   # Funciones y filtros para los usuarios
   before_action :actual_users, only: [:show, :edit]
-  has_filters %w[id name], only: [:edit, :new]
+  has_filters %w[id name], except: [:show, :index]
 
   before_action :authenticate_user!
   before_action :is_admin?, except: [:show, :edit]
@@ -113,6 +113,7 @@ class ProposalsController < ApplicationController
 
       redirect_to created_proposal_path(@proposal), notice: I18n.t("flash.actions.create.proposal")
     else
+      load_all(@current_filter)
       render :new
     end
   end
@@ -130,6 +131,7 @@ class ProposalsController < ApplicationController
 
       redirect_to proposal_path(@proposal), notice: 'Proyecto actualizado correctamente'
     else
+      load_components(@current_filter)
       render :edit
     end
   end
