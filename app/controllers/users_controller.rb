@@ -3,7 +3,7 @@ class UsersController < ApplicationController
 
   #load_and_authorize_resource
   load_and_authorize_resource except: [:change,:update]
-  skip_load_and_authorize_resource :only => :edit
+#   skip_load_and_authorize_resource :only => :edit
   skip_authorization_check # JHH: Tener esto controlado
   helper_method :author?
   helper_method :valid_interests_access?
