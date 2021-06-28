@@ -2,7 +2,7 @@ class UsersController < ApplicationController
   has_filters %w[proposals participants participants_d participants_p projects projects_geozone debates budget_investments comments follows], only: :show
 
   #load_and_authorize_resource
-  load_and_authorize_resource except: [:change,:update]
+  load_and_authorize_resource except: [:change,:update,:edit]
 #   skip_load_and_authorize_resource :only => :edit
   skip_authorization_check # JHH: Tener esto controlado
   helper_method :author?
@@ -11,7 +11,9 @@ class UsersController < ApplicationController
   def show
     load_filtered_activity if valid_access?
   end
-
+  def edit
+  redirect_to @user
+  end
   def change
     @user = User.find_by_id(params[:id])
     @geozones = Geozone.all.order(Arel.sql("LOWER(name)"))
