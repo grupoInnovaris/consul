@@ -16,7 +16,9 @@ class UsersController < ApplicationController
     @user = User.find_by_id(params[:id])
     @geozones = Geozone.all.order(Arel.sql("LOWER(name)"))
   end
-
+  def edit
+    render 'edit'
+  end
   def update
     @user = User.find(params[:id])
 
