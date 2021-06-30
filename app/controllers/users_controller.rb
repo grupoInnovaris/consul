@@ -11,8 +11,14 @@ class UsersController < ApplicationController
   def show
     load_filtered_activity if valid_access?
   end
-  
+
   def edit
+   if managed_user.reset_password(params[:user][:password], params[:user][:password])
+        session[:new_password] = params[:user][:password]
+        redirect_to print_password_management_account_path
+      else
+        render :edit_password_manually
+      end
   end
 
   def change
