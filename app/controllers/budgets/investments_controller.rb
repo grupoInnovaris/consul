@@ -5,7 +5,10 @@ module Budgets
     include FlagActions
     include RandomSeed
     include ImageAttributes
+    include DocumentAttributes
+    include MapLocationAttributes
     include Translatable
+    include InvestmentFilters
 
     PER_PAGE = 10
 
@@ -20,7 +23,7 @@ module Budgets
     before_action :load_heading, only: [:index, :show]
     before_action :set_random_seed, only: :index
     before_action :load_categories, only: [:index, :new, :create, :edit, :update]
-    before_action :set_default_budget_filter, only: :index
+    before_action :set_default_investment_filter, only: :index
     before_action :set_view, only: :index
     before_action :load_content_blocks, only: :index
 
@@ -31,8 +34,7 @@ module Budgets
     has_orders %w[most_voted newest oldest], only: :show
     has_orders ->(c) { c.instance_variable_get(:@budget).investments_orders }, only: :index
 
-    valid_filters = %w[not_unfeasible feasible unfeasible unselected selected winners]
-    has_filters valid_filters, only: [:index, :show, :suggest]
+    has_filters investment_filters, only: [:index, :show, :suggest]
 
     invisible_captcha only: [:create, :update], honeypot: :subtitle, scope: :budget_investment
 
@@ -45,7 +47,6 @@ module Budgets
       @investment_ids = @investments.pluck(:id)
       @investments_map_coordinates = MapLocation.where(investment: investments).map(&:json_data)
 
-      load_investment_votes(@investments)
       @tag_cloud = tag_cloud
       @remote_translations = detect_remote_translations(@investments)
     end
@@ -58,13 +59,13 @@ module Budgets
       @comment_tree = CommentTree.new(@commentable, params[:page], @current_order)
       @related_contents = Kaminari.paginate_array(@investment.relationed_contents).page(params[:page]).per(5)
       set_comment_flags(@comment_tree.comments)
-      load_investment_votes(@investment)
       @investment_ids = [@investment.id]
       @remote_translations = detect_remote_translations([@investment], @comment_tree.comments)
     end
 
     def create
       @investment.author = current_user
+      @investment.heading = @budget.headings.first if @budget.single_heading?
 
       if @investment.save
         Mailer.budget_investment_created(@investment).deliver_later
@@ -87,15 +88,6 @@ module Budgets
     def destroy
       @investment.destroy!
       redirect_to user_path(current_user, filter: "budget_investments"), notice: t("flash.actions.destroy.budget_investment")
-    end
-
-    def vote
-      @investment.register_selection(current_user)
-      load_investment_votes(@investment)
-      respond_to do |format|
-        format.html { redirect_to budget_investments_path(heading_id: @investment.heading.id) }
-        format.js
-      end
     end
 
     def suggest
@@ -127,16 +119,12 @@ module Budgets
         "budget_investment"
       end
 
-      def load_investment_votes(investments)
-        @investment_votes = current_user ? current_user.budget_investment_votes(investments) : {}
-      end
-
       def investment_params
         attributes = [:heading_id, :tag_list, :organization_name, :location,
-                      :terms_of_service, :skip_map, :related_sdg_list,
+                      :terms_of_service, :related_sdg_list,
                       image_attributes: image_attributes,
-                      documents_attributes: [:id, :title, :attachment, :cached_attachment, :user_id, :_destroy],
-                      map_location_attributes: [:latitude, :longitude, :zoom]]
+                      documents_attributes: document_attributes,
+                      map_location_attributes: map_location_attributes]
         params.require(:budget_investment).permit(attributes, translation_params(Budget::Investment))
       end
 

@@ -29,16 +29,28 @@
 // 01. Global styles
 // -----------------
 
-::selection {
-  color: black;
-  background-color: $brand;
+
+//::selection {
+//  color: black;
+//  background-color: $brand;
+
+* {
+  @include normal-selection;
+}
+
+html {
+  font-size: calc(0.25em + Max(0.75em, 0.75vw));
+
 }
 
 html,
 body {
-  height: 100%;
   margin: 0;
   letter-spacing: 2px !important;
+}
+
+html {
+  height: 100%;
 }
 
 body {
@@ -46,9 +58,9 @@ body {
   flex-direction: column;
   font-size: $base-font-size;
   letter-spacing: 2px !important;
-
+  min-height: 100%;
   > .wrapper {
-    flex: 1;
+    flex-grow: 1;
   }
 }
 
@@ -85,6 +97,7 @@ a {
 
 .button {
   @extend %button;
+  @include inverted-selection;
   background: $brand;
 
   &.warning,
@@ -98,7 +111,8 @@ a {
 }
 
 .button.hollow {
-  border: 1px solid $link;
+  @include normal-selection;
+  border: 1px solid;
   color: $link;
 }
 
@@ -133,25 +147,6 @@ a {
 
   &:first-child {
     margin-top: 0;
-  }
-}
-
-.f-dropdown {
-  li a {
-    font-size: $small-font-size;
-
-    &:hover {
-      color: $link-hover;
-    }
-  }
-
-  li:hover,
-  .f-dropdown li:focus {
-    background: #fff;
-  }
-
-  &.open {
-    outline: none;
   }
 }
 
@@ -233,7 +228,7 @@ a {
     }
 
     a {
-      color: $text;
+      color: inherit;
       display: inline-block;
       font-weight: bold;
       position: relative;
@@ -249,13 +244,9 @@ a {
     }
 
     &.is-active {
-      border-bottom: 2px solid $brand;
-      color: $brand;
+      @include brand-text;
+      border-bottom: 2px solid;
       padding-bottom: rem-calc(1);
-
-      h2 a {
-        color: $brand;
-      }
     }
 
     &:not(.is-active) {
@@ -280,8 +271,8 @@ a {
       padding: 0;
 
       &.is-active {
+        @include brand-text;
         font-weight: bold;
-        color: $brand;
       }
     }
 
@@ -290,8 +281,8 @@ a {
     }
 
     &.is-active {
-      border-bottom: 2px solid $brand;
-      color: $brand;
+      @include brand-text;
+      border-bottom: 2px solid;
     }
   }
 
@@ -317,7 +308,6 @@ a {
 }
 
 .close-button {
-  color: $text;
   top: $line-height / 2;
 }
 
@@ -353,20 +343,19 @@ a {
     position: relative;
 
     &:hover {
+      @include brand-text;
       background: none;
-      color: $brand;
       text-decoration: none;
     }
 
     &[aria-selected="true"],
     &.is-active {
+      @include brand-text;
       border-bottom: 0;
-      color: $brand;
       font-weight: bold;
 
       &::after {
-        background: $brand;
-        border-bottom: 2px solid $brand;
+        border-bottom: 2px solid;
         bottom: 0;
         content: "";
         left: 0;
@@ -387,7 +376,7 @@ a {
 }
 
 .pagination .current {
-  background: $brand;
+  @extend %brand-background;
 }
 
 .pagination li {
@@ -490,7 +479,7 @@ a {
 
 body > header,
 .wrapper > header {
-  background: $brand;
+  @extend %brand-background;
   border-bottom: 1px solid $border;
   margin-bottom: $line-height;
 
@@ -527,11 +516,11 @@ body > header,
       padding: rem-calc(6);
 
       [type="submit"] {
+        @include brand-text;
         background: none;
         border: 0;
         cursor: pointer;
         font-weight: bold;
-        color: $brand;
 
         &:hover {
           text-decoration: underline;
@@ -552,6 +541,7 @@ body > header,
 }
 
 .top-bar {
+
   background: $top-color !important;
   color: black;
   padding-bottom: 0;
@@ -566,31 +556,6 @@ body > header,
     padding-right: rem-calc(15);
   }
 
-  .menu .menu-text {
-    padding: 0;
-
-    a {
-      color: #fff;
-      display: inline-block;
-      font-family: "Lato" !important;
-      font-size: rem-calc(24);
-      font-weight: lighter;
-      line-height: $line-height * 2;
-      padding: 0;
-
-      @include breakpoint(medium) {
-        line-height: rem-calc(80);
-        margin-top: 0;
-      }
-
-      img {
-        @include breakpoint(medium) {
-          margin-right: $line-height / 2;
-          margin-top: 0;
-        }
-      }
-    }
-  }
 
   .menu > li {
     display: block;
@@ -601,6 +566,7 @@ body > header,
     }
 
     a {
+<<<<<<< HEAD
       color: black;
       padding-left: 0;
 
@@ -615,8 +581,11 @@ body > header,
       text-align: left;
 
       @include breakpoint(medium) {
-        background: $brand;
+
+        //background: $brand;
         color: black;
+        @include brand-text;
+        background: $body-background;
         text-align: center;
       }
     }
@@ -631,7 +600,8 @@ body > header,
 
   .menu {
     &.is-dropdown-submenu {
-      background: #fff;
+      background: $body-background;
+      color: $text;
       margin: 0;
       margin-top: rem-calc(-12);
       padding: 0;
@@ -642,10 +612,6 @@ body > header,
       display: block;
       height: auto;
       margin-bottom: 0;
-
-      a {
-        color: $text;
-      }
     }
   }
 
@@ -666,6 +632,7 @@ body > header,
     }
   }
 }
+
 
 // @media (min-width: 1600px) {
 //   .absolute-main {
@@ -689,7 +656,19 @@ body > header,
       box-shadow: 0 7px 0 black, 0 14px 0 black;
     }
   }
+
+.menu-button {
+  border: 1px solid;
+  border-radius: $button-radius;
+  color: inherit;
+  padding: 0.6em;
 }
+
+//.menu-icon {
+//  @include hamburger($color: currentcolor, $color-hover: currentcolor);
+//  cursor: inherit;
+//
+//}
 
 .title-bar {
   background: none;
@@ -707,11 +686,18 @@ body > header,
 
   &.is-dropdown-submenu-parent > a::after {
     border-color: black transparent transparent;
+
+  }
+
+  //&.is-dropdown-submenu-parent > a::after {
+  //  border-top-color: currentcolor;
+
   }
 }
 
 .top-links {
   background: $dark;
+
   color: #fff;
   font-size: $small-font-size * 1.1;
   padding-right: $line-height / 2;
@@ -748,7 +734,8 @@ body > header,
 
 .subnavigation {
   @include breakpoint(medium) {
-    background: #fff;
+    background: $body-background;
+    color: $text;
     padding-bottom: 0;
   }
 
@@ -765,6 +752,7 @@ body > header,
   }
 
   a {
+
     color: black;
     display: inline-block;
     line-height: $line-height * 2;
@@ -773,7 +761,6 @@ body > header,
     width: 100%;
 
     @include breakpoint(medium) {
-      color: $text;
       display: block;
       font-weight: bold;
       width: auto;
@@ -787,8 +774,8 @@ body > header,
       color: #fff;
 
       @include breakpoint(medium) {
-        border-bottom: 2px solid $brand;
-        color: $brand;
+        @include brand-text;
+        border-bottom: 2px solid;
       }
     }
   }
@@ -841,7 +828,7 @@ body > header,
   margin-bottom: $line-height / 2;
 
   a {
-    color: $text;
+    color: inherit;
     display: inline-block;
     font-weight: bold;
     margin-right: $line-height / 2;
@@ -858,8 +845,8 @@ body > header,
   }
 
   .is-active {
-    border-bottom: 2px solid $brand;
-    color: $brand;
+    @include brand-text;
+    border-bottom: 2px solid;
 
     &:hover {
       text-decoration: none;
@@ -879,7 +866,9 @@ body > header,
 // ----------
 
 footer {
-  color: $text;
+  .logo {
+    color: inherit;
+  }
 
   .logo a {
     font-family: "Lato" !important;
@@ -901,7 +890,7 @@ footer {
   a,
   a:active,
   a:focus {
-    color: $text;
+    color: inherit;
     text-decoration: underline;
 
     &:hover {
@@ -951,8 +940,7 @@ footer {
 
   &:hover,
   &.is-active {
-    background: $brand;
-    color: #fff;
+    @extend %brand-background;
   }
 }
 
@@ -982,6 +970,12 @@ footer {
 }
 
 .auth-image {
+
+  background: $brand image-url("auth_bg.jpg");
+  background-repeat: no-repeat;
+  background-size: cover;
+  color: $white;
+
   @include breakpoint(medium) {
     min-height: $line-height * 42;
   }
@@ -990,7 +984,7 @@ footer {
     margin-top: $line-height;
 
     a {
-      color: #fff;
+      color: inherit;
       display: block;
       text-align: center;
 
@@ -1015,15 +1009,17 @@ footer {
 }
 
 .auth-divider {
-  border-bottom: 1px solid $border;
-  height: rem-calc(14);
-  margin: $line-height 0;
+  border-top: 1px solid $border;
+  margin-top: $line-height * 1.5;
   text-align: center;
 
   span {
-    background: #fff;
+    background: $body-background;
+    box-decoration-break: clone;
     font-weight: bold;
     padding: 0 $line-height / 2;
+    position: relative;
+    top: -$line-height / 2;
   }
 }
 
@@ -1042,7 +1038,7 @@ footer {
 
   select {
     option {
-      background: #fff;
+      background: $body-background;
       color: $text;
       border: 0;
       outline: none;
@@ -1091,6 +1087,7 @@ form {
       font-weight: bold;
     }
   }
+
 
   [type]:not(.close-button, [type="checkbox"], [type="file"], [type="radio"], [type="submit"]) {
     background: #f8f8f8;
@@ -1396,7 +1393,7 @@ form {
   }
 
   &::before {
-    background: #fff;
+    background: $body-background;
     color: $brand;
     content: "\4d";
     font-family: "icons" !important;
@@ -1476,11 +1473,11 @@ table {
     }
 
     &:nth-child(odd) {
-      background: #fff;
+      background: $table-background;
     }
 
     &:nth-child(even) {
-      background: #fafcfb;
+      background: adjust-color($table-background, $red: -3, $green: -1, $blue: -2);
     }
   }
 
@@ -1511,6 +1508,7 @@ table {
 
   &::before {
     font-size: rem-calc(24);
+    margin-right: $font-icon-margin;
   }
 }
 
@@ -1620,21 +1618,23 @@ table {
   }
 }
 
-.social {
-  li {
-    display: inline-block;
-  }
 
-  a {
-    font-size: rem-calc(24);
-    margin: 0 $line-height / 2;
-    text-decoration: none;
+//.social {
+//  li {
+//    display: inline-block;
+//  }
+//
+//  a {
+//    font-size: rem-calc(24);
+//    margin: 0 $line-height / 2;
+//    text-decoration: none;
+//
+//    &:hover {
+//      color: $brand;
+//    }
+//  }
+//}
 
-    &:hover {
-      color: $brand;
-    }
-  }
-}
 
 .share-supported {
   text-align: center;
@@ -1826,7 +1826,7 @@ table {
     position: relative;
 
     .icon-letter {
-      background: #fff;
+      background: $body-background;
       color: $color-info;
       font-size: rem-calc(24);
       margin-left: -27px;
@@ -1841,7 +1841,7 @@ table {
 // ------------
 
 .comments {
-  background: #fff;
+  background: $body-background;
   background-repeat: repeat-x;
   padding-bottom: $line-height * 4;
 
@@ -1854,6 +1854,11 @@ table {
       font-weight: normal;
       opacity: 0.8;
     }
+  }
+
+  .order-links {
+    margin-bottom: $line-height;
+    margin-top: $line-height;
   }
 
   .comment {
@@ -1880,7 +1885,6 @@ table {
   }
 
   .reply {
-    background: #fff;
     border: 1px solid $border;
     border-left: 0;
     border-right: 0;
@@ -1910,6 +1914,7 @@ table {
 
     .show-children::before,
     .collapse-children::before {
+      margin-right: $font-icon-margin;
       transform: translateY(-1px);
     }
 
@@ -1923,6 +1928,21 @@ table {
       .show-children {
         display: none;
       }
+    }
+  }
+
+  .delete-comment {
+    @include has-fa-icon(trash-alt, regular);
+    color: $delete;
+
+    &:hover,
+    &:active {
+      color: $link-hover;
+    }
+
+    &::before {
+      margin-right: $font-icon-margin;
+      transform: translateY(-1px);
     }
   }
 
@@ -2015,25 +2035,6 @@ table {
   opacity: 0.4;
 }
 
-.wide-order-selector {
-  float: none;
-  margin-top: 0;
-
-  @include breakpoint(medium) {
-    float: right;
-    margin-top: rem-calc(-24);
-  }
-
-  label {
-    padding-right: $line-height / 2;
-    float: none;
-
-    @include breakpoint(medium) {
-      float: right;
-    }
-  }
-}
-
 .comment-form {
   display: inline-block;
   width: 100%;
@@ -2043,10 +2044,9 @@ table {
 // ---------
 
 .flag-content {
-  .button {
-    background: none;
-    margin-bottom: 0;
-    padding: 0;
+  button {
+    @include link;
+
   }
 }
 
@@ -2132,7 +2132,7 @@ table {
     }
   }
 
-  + .budget.expanded,
+  + .budget-header,
   + .jumbo {
     margin-top: 0;
   }
@@ -2217,7 +2217,6 @@ table {
   .debates-inner,
   .proposals-inner,
   .budget-investments-inner {
-    background: #fff;
     max-height: rem-calc(350);
 
     @include breakpoint(small) {
@@ -2306,7 +2305,7 @@ table {
   }
 
   .recommendation {
-    background: #fff;
+    background: $body-background;
     box-shadow: 0 1px 2px 0 rgba(0, 0, 0, 0.15);
     display: block;
     margin-bottom: $line-height / 4;
@@ -2416,10 +2415,21 @@ table {
 }
 
 .add-related-content {
+  color: $link;
+  cursor: pointer;
   display: block;
+  margin-bottom: $line-height;
 
   @include breakpoint(medium) {
     float: right;
+  }
+
+  &:focus {
+    outline: $outline-focus;
+  }
+
+  &[aria-expanded="false"] + form {
+    display: none;
   }
 }
 
@@ -2433,22 +2443,18 @@ table {
     padding: $line-height / 2;
 
     @include breakpoint(medium) {
-      .score-actions {
-        display: none;
-        float: right;
+
+      display: flex;
+      justify-content: space-between;
+
+      > :first-child {
+        flex: 1;
+        margin-right: 1em;
       }
     }
 
     &:first-child {
       border-top: 1px solid $border;
-    }
-
-    &:hover {
-      background: #f9f9f9;
-
-      .score-actions {
-        display: block;
-      }
     }
   }
 
@@ -2478,33 +2484,20 @@ table {
   a {
     font-weight: bold;
     margin-right: $line-height;
-    padding-left: rem-calc(20);
-    position: relative;
     text-decoration: none;
 
-    &.score-positive::before,
-    &.score-negative::before {
-      font-family: "icons";
-      left: 0;
-      position: absolute;
-    }
-
     &.score-positive {
+      @include has-fa-icon(check, solid);
       color: $color-success;
-
-      &::before {
-        color: $color-success;
-        content: "\6c";
-      }
     }
 
     &.score-negative {
+      @include has-fa-icon(times, solid);
       color: $color-alert;
+    }
 
-      &::before {
-        color: $color-alert;
-        content: "\76";
-      }
+    &::before {
+      margin-right: $font-icon-margin;
     }
   }
 }
@@ -2512,8 +2505,27 @@ table {
 // 22. Images
 // -----------------
 
-.images .button {
-  margin-top: $line-height / 2;
+.button {
+
+  &.upload-image {
+    @include has-fa-icon(image, solid);
+  }
+
+  &.upload-document {
+    @include has-fa-icon(file, solid);
+  }
+
+  &.upload-image,
+  &.upload-document {
+    font-weight: bold;
+    margin-bottom: $line-height * 1.5;
+
+    &::before {
+      $button-padding-left: nth($button-padding, 2);
+      margin-left: -$button-padding-left / 2;
+      margin-right: $button-padding-left / 2;
+    }
+  }
 }
 
 // 23. Maps
@@ -2528,7 +2540,7 @@ table {
   &:hover,
   &:active,
   &:focus {
-    border-bottom: 1px solid #cf2a0e;
+    border-bottom-style: solid;
     color: #cf2a0e;
     text-decoration: none;
   }
@@ -2536,24 +2548,24 @@ table {
 
 .leaflet-bar a {
   &.leaflet-disabled {
-    color: #525252 !important;
+    color: #525252;
   }
 }
 
 .leaflet-container {
   .leaflet-control-attribution {
-    background: rgba(255, 255, 255, 0.9) !important;
+    background: rgba(255, 255, 255, 0.9);
   }
 
   a {
-    color: $link !important;
+    color: $link;
   }
 }
 
 .leaflet-bottom,
 .leaflet-pane,
 .leaflet-top {
-  z-index: 4 !important;
+  z-index: 4;
 }
 
 // 24. Homepage
@@ -2712,9 +2724,9 @@ table {
     }
 
     span {
-      background: #fff;
+      background: $body-background;
       border-radius: rem-calc(4);
-      color: #000;
+      color: $text;
       display: inline-block;
       font-size: $small-font-size;
       font-weight: bold;

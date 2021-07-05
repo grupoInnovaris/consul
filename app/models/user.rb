@@ -92,6 +92,7 @@ class User < ApplicationRecord
     class_name:  "Poll::Recount",
     foreign_key: :author_id,
     inverse_of:  :author
+  has_many :related_contents, foreign_key: :author_id, inverse_of: :author, dependent: nil
   has_many :topics, foreign_key: :author_id, inverse_of: :author
   belongs_to :geozone
 
@@ -131,8 +132,8 @@ class User < ApplicationRecord
     joins(:comments).where("comments.commentable": commentables).distinct
   end
   scope :by_username_email_or_document_number, ->(search_string) do
-    string = "%#{search_string}%"
-    where("username ILIKE ? OR email ILIKE ? OR document_number ILIKE ?", string, string, string)
+    search = "%#{search_string.strip}%"
+    where("username ILIKE ? OR email ILIKE ? OR document_number ILIKE ?", search, search, search)
   end
   scope :between_ages, ->(from, to) do
     where(
@@ -176,11 +177,6 @@ class User < ApplicationRecord
 
   def legislation_proposal_votes(proposals)
     voted = votes.for_legislation_proposals(proposals)
-    voted.each_with_object({}) { |v, h| h[v.votable_id] = v.value }
-  end
-
-  def budget_investment_votes(budget_investments)
-    voted = votes.for_budget_investments(budget_investments)
     voted.each_with_object({}) { |v, h| h[v.votable_id] = v.value }
   end
 
@@ -259,19 +255,27 @@ class User < ApplicationRecord
   end
 
   def block
-    debates_ids = Debate.where(author_id: id).pluck(:id)
-    comments_ids = Comment.where(user_id: id).pluck(:id)
-    proposal_ids = Proposal.where(author_id: id).pluck(:id)
-    investment_ids = Budget::Investment.where(author_id: id).pluck(:id)
-    proposal_notification_ids = ProposalNotification.where(author_id: id).pluck(:id)
-
     hide
 
-    Debate.hide_all debates_ids
-    Comment.hide_all comments_ids
+    Debate.hide_all debate_ids
+    Comment.hide_all comment_ids
     Proposal.hide_all proposal_ids
-    Budget::Investment.hide_all investment_ids
-    ProposalNotification.hide_all proposal_notification_ids
+    Budget::Investment.hide_all budget_investment_ids
+    ProposalNotification.hide_all ProposalNotification.where(author_id: id).pluck(:id)
+  end
+
+  def full_restore
+    ActiveRecord::Base.transaction do
+      Debate.restore_all debates.where("hidden_at >= ?", hidden_at)
+      Comment.restore_all comments.where("hidden_at >= ?", hidden_at)
+      Proposal.restore_all proposals.where("hidden_at >= ?", hidden_at)
+      Budget::Investment.restore_all budget_investments.where("hidden_at >= ?", hidden_at)
+      ProposalNotification.restore_all(
+        ProposalNotification.only_hidden.where("hidden_at >= ?", hidden_at).where(author_id: id)
+      )
+
+      restore
+    end
   end
 
   def show_user
@@ -336,7 +340,10 @@ class User < ApplicationRecord
   end
 
   def self.search(term)
-    term.present? ? where("email = ? OR username ILIKE ?", term, "%#{term}%") : none
+    return none if term.blank?
+
+    search = term.strip
+    where("email = ? OR username ILIKE ?", search, "%#{search}%")
   end
 
   def self.username_max_length

@@ -1,10 +1,14 @@
 <div class="small-12 medium-9 column">
   <ul>
+
     <%= raw content_block("subnavigation_left", I18n.locale) %>
       <li>
         <%= link_to t("layouts.header.projects"),
                                 projects_path %>
       </li>
+
+
+
     <% if feature?(:debates) %>
       <li>
         <%= layout_menu_link_to t("layouts.header.debates"),
@@ -49,7 +53,7 @@
       <li>
         <%= layout_menu_link_to t("layouts.header.sdg"),
                                 sdg_goals_path,
-                                controller_path.split("/").first == "sdg",
+                                controller_path == "sdg/goals" && action_name != "help",
                                 accesskey: "6" %>
       </li>
     <% end %>
@@ -62,6 +66,6 @@
       </li>
     <% end %>
 
-    <%= raw content_block("subnavigation_right", I18n.locale) %>
+    <%= raw content_block("subnavigation_right") %>
   </ul>
 </div>

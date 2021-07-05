@@ -2,6 +2,7 @@ FactoryBot.define do
   factory :budget do
     sequence(:name) { |n| "#{Faker::Lorem.word} #{n}" }
     currency_symbol { "€" }
+    published { true }
     phase { "accepting" }
     description_drafting  { "This budget is drafting" }
     description_informing { "This budget is informing" }
@@ -15,7 +16,7 @@ FactoryBot.define do
     description_finished { "This budget is finished" }
 
     trait :drafting do
-      phase { "drafting" }
+      published { false }
     end
 
     trait :informing do
@@ -104,7 +105,6 @@ FactoryBot.define do
     description          { "Spend money on this" }
     price                { 10 }
     unfeasibility_explanation { "" }
-    skip_map             { "1" }
     terms_of_service     { "1" }
     incompatible         { false }
 

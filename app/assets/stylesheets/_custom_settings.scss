@@ -1,8 +1,7 @@
-// Overrides and adds customized foundation settings in this file
-// Read more on documentation:
-// * English: https://github.com/consul/consul/blob/master/CUSTOMIZE_EN.md#css
-// * Spanish: https://github.com/consul/consul/blob/master/CUSTOMIZE_ES.md#css
+// Add custom variables in this file. For example, define a new variable
+// called `$important-link` which you can use in your custom CSS files.
 //
+<<<<<<< HEAD
 
 //------------ JHH: -----------
 $brand: rgb(255, 197, 20);
@@ -198,3 +197,7 @@ footer {
   width: auto;
 }
 //------------ Fin -----------
+
+// To override existing variables, use the file named
+// `_consul_custom_overrides.scss` instead
+

@@ -7,6 +7,7 @@
   @include has-fa-icon(quote-right, solid, after);
   background: $table-header;
   border-radius: rem-calc(6);
+  clear: both;
   color: $admin-text;
   margin-bottom: $line-height;
   padding: $padding;
@@ -35,7 +36,6 @@
   &::after {
     bottom: $padding / 2;
     color: $white;
-    margin-right: 0;
     position: absolute;
     right: calc(#{$padding} + #{$quote-padding});
   }

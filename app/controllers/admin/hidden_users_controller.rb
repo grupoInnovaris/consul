@@ -19,7 +19,7 @@ class Admin::HiddenUsersController < Admin::BaseController
   end
 
   def restore
-    @user.restore
+    @user.full_restore
     Activity.log(current_user, :restore, @user)
     redirect_to admin_root_path
   end
