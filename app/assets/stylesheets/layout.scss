@@ -35,11 +35,7 @@
 
 html {
   font-size: calc(0.25em + Max(0.75em, 0.75vw));
-}
 
-::selection {
-  color: black;
-  background-color: $brand;
 }
 
 html,
