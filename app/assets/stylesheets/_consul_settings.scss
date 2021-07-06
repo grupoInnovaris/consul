@@ -167,8 +167,8 @@ $closebutton-color: $text !default;
 
 $tab-background-active: $white !default;
 
-$accordion-item-color: foreground($accordion-background, $text);
-$accordion-content-color: foreground($accordion-background, $text);
+//$accordion-item-color: foreground($accordion-background, $text);
+//$accordion-content-color: foreground($accordion-background, $text);
 
 $tab-item-font-size: $base-font-size !default;
 $tab-item-padding: $line-height / 2  0 !default;
