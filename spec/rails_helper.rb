@@ -1,5 +1,5 @@
 ENV["RAILS_ENV"] ||= "test"
-if ENV["COVERALLS"]
+if ENV["COVERALLS_REPO_TOKEN"]
   require "coveralls"
   Coveralls.wear!("rails")
 end
@@ -34,7 +34,7 @@ end
 Capybara.register_driver :headless_chrome do |app|
   capabilities = Selenium::WebDriver::Remote::Capabilities.chrome(
     "goog:chromeOptions" => {
-      args: %W[headless no-sandbox window-size=1200,600 proxy-server=127.0.0.1:#{Capybara::Webmock.port_number}]
+      args: %W[headless no-sandbox window-size=1200,800 proxy-server=#{Capybara.app_host}:#{Capybara::Webmock.port_number}]
     }
   )
 

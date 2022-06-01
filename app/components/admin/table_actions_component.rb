@@ -1,7 +1,6 @@
 class Admin::TableActionsComponent < ApplicationComponent
-  include TableActionLink
+  include Admin::Namespace
   attr_reader :record, :options
-  delegate :namespace, to: :helpers
 
   def initialize(record = nil, **options)
     @record = record

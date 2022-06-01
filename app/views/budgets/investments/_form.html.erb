@@ -3,9 +3,12 @@
   <%= render "shared/errors", resource: @investment %>
 
   <div class="row column">
-    <div class="small-12 medium-8 column">
-      <%= f.select :heading_id, budget_heading_select_options(@budget), { include_blank: true } %>
-    </div>
+    <% unless @budget.single_heading? %>
+      <div class="small-12 medium-8 column">
+        <%= f.select :heading_id, budget_heading_select_options(@budget), { include_blank: true } %>
+      </div>
+    <% end %>
+
     <div class="row">
       <div class="small-12 column">
         <%= render "shared/globalize_locales", resource: @investment %>
@@ -16,9 +19,7 @@
       <div class="small-12 column">
         <%= translations_form.text_field :title,
               maxlength: Budget::Investment.title_max_length,
-              data: { js_suggest_result: "js_suggest_result",
-                      js_suggest: ".js-suggest",
-                      js_url: suggest_budget_investments_path(@budget) } %>
+              data: suggest_data(@investment) %>
       </div>
       <div class="js-suggest" data-locale="<%= translations_form.locale %>"></div>
 

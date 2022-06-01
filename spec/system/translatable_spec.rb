@@ -8,7 +8,7 @@ describe "Public area translatable records" do
     login_as(user)
   end
 
-  context "New records", :js do
+  context "New records" do
     scenario "Add only single translation at once" do
       visit new_debate_path
 
@@ -47,7 +47,6 @@ describe "Public area translatable records" do
       fill_in "Title", with: "Titre en Français"
       fill_in_ckeditor "Description", with: "Contenu en Français"
 
-      select "Everywhere", from: "budget_investment_heading_id"
       check "budget_investment_terms_of_service"
       click_button "Create Investment"
 
@@ -76,7 +75,6 @@ describe "Public area translatable records" do
       fill_in "Title", with: "Titre en Français"
       fill_in_ckeditor "Description", with: "Contenu en Français"
 
-      select "Everywhere", from: "budget_investment_heading_id"
       check "budget_investment_terms_of_service"
       click_button "Create Investment"
 
@@ -99,7 +97,6 @@ describe "Public area translatable records" do
       visit new_budget_investment_path(budget)
       click_link "Remove language"
 
-      select "Everywhere", from: "budget_investment_heading_id"
       check "budget_investment_terms_of_service"
       click_button "Create Investment"
 
@@ -108,7 +105,7 @@ describe "Public area translatable records" do
     end
   end
 
-  context "Globalize javascript interface", :js do
+  context "Globalize javascript interface" do
     scenario "Highlight current locale" do
       visit new_debate_path
 
@@ -181,7 +178,7 @@ describe "Public area translatable records" do
     end
   end
 
-  context "Existing records", :js do
+  context "Existing records" do
     before { translatable.update(attributes.merge(author: user)) }
 
     let(:attributes) do

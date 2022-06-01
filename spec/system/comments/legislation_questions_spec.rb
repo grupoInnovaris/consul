@@ -12,12 +12,12 @@ describe "Commenting legislation questions" do
 
   scenario "Index" do
     3.times { create(:comment, commentable: legislation_question) }
+    comment = Comment.includes(:user).last
 
     visit legislation_process_question_path(legislation_question.process, legislation_question)
 
     expect(page).to have_css(".comment", count: 3)
 
-    comment = Comment.last
     within first(".comment") do
       expect(page).to have_content comment.user.name
       expect(page).to have_content I18n.l(comment.created_at, format: :datetime)
@@ -60,7 +60,7 @@ describe "Commenting legislation questions" do
     expect(page).to have_current_path(comment_path(comment))
   end
 
-  scenario "Collapsable comments", :js do
+  scenario "Collapsable comments" do
     parent_comment = create(:comment, body: "Main comment", commentable: legislation_question)
     child_comment  = create(:comment, body: "First subcomment", commentable: legislation_question, parent: parent_comment)
     grandchild_comment = create(:comment, body: "Last subcomment", commentable: legislation_question, parent: child_comment)
@@ -110,13 +110,17 @@ describe "Commenting legislation questions" do
     expect(c1.body).to appear_before(c2.body)
     expect(c2.body).to appear_before(c3.body)
 
-    visit legislation_process_question_path(legislation_question.process, legislation_question, order: :newest)
+    click_link "Newest first"
 
+    expect(page).to have_link "Newest first", class: "is-active"
+    expect(page).to have_current_path(/#comments/, url: true)
     expect(c3.body).to appear_before(c2.body)
     expect(c2.body).to appear_before(c1.body)
 
-    visit legislation_process_question_path(legislation_question.process, legislation_question, order: :oldest)
+    click_link "Oldest first"
 
+    expect(page).to have_link "Oldest first", class: "is-active"
+    expect(page).to have_current_path(/#comments/, url: true)
     expect(c1.body).to appear_before(c2.body)
     expect(c2.body).to appear_before(c3.body)
   end
@@ -184,6 +188,7 @@ describe "Commenting legislation questions" do
     end
 
     expect(page).to have_css(".comment", count: 2)
+    expect(page).to have_current_path(/#comments/, url: true)
   end
 
   describe "Not logged user" do
@@ -199,7 +204,7 @@ describe "Commenting legislation questions" do
     end
   end
 
-  scenario "Create", :js do
+  scenario "Create" do
     login_as(user)
     visit legislation_process_question_path(legislation_question.process, legislation_question)
 
@@ -212,7 +217,7 @@ describe "Commenting legislation questions" do
     end
   end
 
-  scenario "Errors on create", :js do
+  scenario "Errors on create" do
     login_as(user)
     visit legislation_process_question_path(legislation_question.process, legislation_question)
 
@@ -221,7 +226,7 @@ describe "Commenting legislation questions" do
     expect(page).to have_content "Can't be blank"
   end
 
-  scenario "Unverified user can't create comments", :js do
+  scenario "Unverified user can't create comments" do
     unverified_user = create :user
     login_as(unverified_user)
 
@@ -230,7 +235,7 @@ describe "Commenting legislation questions" do
     expect(page).to have_content "To participate verify your account"
   end
 
-  scenario "Can't create comments if debate phase is not open", :js do
+  scenario "Can't create comments if debate phase is not open" do
     process.update!(debate_start_date: Date.current - 2.days, debate_end_date: Date.current - 1.day)
     login_as(user)
 
@@ -239,7 +244,7 @@ describe "Commenting legislation questions" do
     expect(page).to have_content "Closed phase"
   end
 
-  scenario "Reply", :js do
+  scenario "Reply" do
     citizen = create(:user, username: "Ana")
     manuela = create(:user, :level_two, username: "Manuela")
     comment = create(:comment, commentable: legislation_question, user: citizen)
@@ -261,7 +266,7 @@ describe "Commenting legislation questions" do
     expect(page).not_to have_selector("#js-comment-form-comment_#{comment.id}")
   end
 
-  scenario "Reply update parent comment responses count", :js do
+  scenario "Reply update parent comment responses count" do
     manuela = create(:user, :level_two, username: "Manuela")
     comment = create(:comment, commentable: legislation_question)
 
@@ -277,7 +282,7 @@ describe "Commenting legislation questions" do
     end
   end
 
-  scenario "Reply show parent comments responses when hidden", :js do
+  scenario "Reply show parent comments responses when hidden" do
     manuela = create(:user, :level_two, username: "Manuela")
     comment = create(:comment, commentable: legislation_question)
     create(:comment, commentable: legislation_question, parent: comment)
@@ -295,7 +300,7 @@ describe "Commenting legislation questions" do
     end
   end
 
-  scenario "Errors on reply", :js do
+  scenario "Errors on reply" do
     comment = create(:comment, commentable: legislation_question, user: user)
 
     login_as(user)
@@ -309,7 +314,7 @@ describe "Commenting legislation questions" do
     end
   end
 
-  scenario "N replies", :js do
+  scenario "N replies" do
     parent = create(:comment, commentable: legislation_question)
 
     7.times do
@@ -332,7 +337,7 @@ describe "Commenting legislation questions" do
     end
   end
 
-  scenario "Submit button is disabled after clicking", :js do
+  scenario "Submit button is disabled after clicking" do
     login_as(user)
     visit legislation_process_question_path(legislation_question.process, legislation_question)
 
@@ -345,7 +350,7 @@ describe "Commenting legislation questions" do
   end
 
   describe "Moderators" do
-    scenario "can create comment as a moderator", :js do
+    scenario "can create comment as a moderator" do
       moderator = create(:moderator)
 
       login_as(moderator.user)
@@ -363,7 +368,7 @@ describe "Commenting legislation questions" do
       end
     end
 
-    scenario "can create reply as a moderator", :js do
+    scenario "can create reply as a moderator" do
       citizen = create(:user, username: "Ana")
       manuela = create(:user, username: "Manuela")
       moderator = create(:moderator, user: manuela)
@@ -401,7 +406,7 @@ describe "Commenting legislation questions" do
   end
 
   describe "Administrators" do
-    scenario "can create comment as an administrator", :js do
+    scenario "can create comment as an administrator" do
       admin = create(:administrator)
 
       login_as(admin.user)
@@ -419,7 +424,7 @@ describe "Commenting legislation questions" do
       end
     end
 
-    scenario "can create reply as an administrator", :js do
+    scenario "can create reply as an administrator" do
       citizen = create(:user, username: "Ana")
       manuela = create(:user, username: "Manuela")
       admin   = create(:administrator, user: manuela)
@@ -482,7 +487,7 @@ describe "Commenting legislation questions" do
       end
     end
 
-    scenario "Create", :js do
+    scenario "Create" do
       visit legislation_process_question_path(question.process, question)
 
       within("#comment_#{comment.id}_votes") do
@@ -500,7 +505,7 @@ describe "Commenting legislation questions" do
       end
     end
 
-    scenario "Update", :js do
+    scenario "Update" do
       visit legislation_process_question_path(question.process, question)
 
       within("#comment_#{comment.id}_votes") do
@@ -524,7 +529,7 @@ describe "Commenting legislation questions" do
       end
     end
 
-    scenario "Trying to vote multiple times", :js do
+    scenario "Trying to vote multiple times" do
       visit legislation_process_question_path(question.process, question)
 
       within("#comment_#{comment.id}_votes") do

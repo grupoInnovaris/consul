@@ -7,17 +7,20 @@
 
     <div class="row column">
       <div class="small-12 column">
+
         <%= f.file_field :imagen %>
         <p> <%= t("custom.imagen.title") %></p>
+
+<%#       <%= translations_form.text_field :title,-->
+            maxlength: Debate.title_max_length,-->
+              data: suggest_data(@debate) %>
+
       </div>
       <%= f.translatable_fields do |translations_form| %>
         <div class="small-12 column">
           <%= translations_form.text_field :title,
-                maxlength: Debate.title_max_length,
-                placeholder: t("debates.form.debate_title"),
-                data: { js_suggest_result: "js_suggest_result",
-                        js_suggest: ".js-suggest",
-                        js_url: suggest_debates_path } %>
+          maxlength: Debate.title_max_length,
+          data: suggest_data(@debate) %>
         </div>
         <div class="js-suggest" data-locale="<%= translations_form.locale %>"></div>
 

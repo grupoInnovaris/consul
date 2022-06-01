@@ -1,3 +1,4 @@
+
 <% show=false
   if user_signed_in?
     if current_administrator?
@@ -14,7 +15,6 @@
           end
         end
       end
-
       if show!=true
         @users_index = ProposalParticipant.where(proposal_id: @proposal.id)
         @users_index.each do |index|

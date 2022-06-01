@@ -1,5 +1,11 @@
 class Management::Budgets::InvestmentsController < Management::BaseController
   include Translatable
+  include ImageAttributes
+  include DocumentAttributes
+  include MapLocationAttributes
+  include FeatureFlags
+  feature_flag :budgets
+
   before_action :load_budget
 
   load_resource :budget
@@ -9,7 +15,6 @@ class Management::Budgets::InvestmentsController < Management::BaseController
 
   def index
     @investments = @investments.apply_filters_and_search(@budget, params).page(params[:page])
-    load_investment_votes(@investments)
   end
 
   def new
@@ -19,6 +24,7 @@ class Management::Budgets::InvestmentsController < Management::BaseController
   def create
     @investment.terms_of_service = "1"
     @investment.author = managed_user
+    @investment.heading = @budget.headings.first if @budget.single_heading?
 
     if @investment.save
       notice = t("flash.actions.create.notice", resource_name: Budget::Investment.model_name.human, count: 1)
@@ -30,31 +36,19 @@ class Management::Budgets::InvestmentsController < Management::BaseController
   end
 
   def show
-    load_investment_votes(@investment)
-  end
-
-  def vote
-    @investment.register_selection(managed_user)
-    load_investment_votes(@investment)
-    respond_to do |format|
-      format.html { redirect_to management_budget_investments_path(heading_id: @investment.heading.id) }
-      format.js
-    end
   end
 
   def print
     @investments = @investments.apply_filters_and_search(@budget, params).order(cached_votes_up: :desc).for_render.limit(15)
-    load_investment_votes(@investments)
   end
 
   private
 
-    def load_investment_votes(investments)
-      @investment_votes = managed_user ? managed_user.budget_investment_votes(investments) : {}
-    end
-
     def investment_params
-      attributes = [:external_url, :heading_id, :tag_list, :organization_name, :location, :skip_map]
+      attributes = [:external_url, :heading_id, :tag_list, :organization_name, :location,
+                    image_attributes: image_attributes,
+                    documents_attributes: document_attributes,
+                    map_location_attributes: map_location_attributes]
       params.require(:budget_investment).permit(attributes, translation_params(Budget::Investment))
     end
 
