@@ -1,6 +1,13 @@
 <nav>
   <ul>
-    <%= raw content_block("subnavigation_left") %>
+
+    <%= raw content_block("subnavigation_left", I18n.locale) %>
+      <li>
+        <%= link_to t("layouts.header.projects"),
+                                projects_path %>
+      </li>
+
+
 
     <% if feature?(:debates) %>
       <li>

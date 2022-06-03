@@ -230,11 +230,16 @@ $tooltip-background-color: $brand;
 
 $tab-background-active: $white !default;
 
+//$accordion-item-color: foreground($accordion-background, $text);
+//$accordion-content-color: foreground($accordion-background, $text);
+
 $tab-item-font-size: $base-font-size !default;
 $tab-item-padding: $line-height / 2  0 !default;
 $tab-content-border: $border !default;
 
-$closebutton-color: $text !default;
+$orbit-bullet-diameter: 0.8rem !default;
+$pagination-radius: $global-radius;
+$show-header-for-stacked: true !default;
 
 $tooltip-background-color: $brand !default;
 

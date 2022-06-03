@@ -104,26 +104,26 @@
               <%= render "gallery", answer: answer %>
             <% end %>
 
-          <% if answer.description.present? %>
-            <div class="margin-top">
-              <div id="answer_description_<%= answer.id %>" class="answer-description short" data-toggler="short">
-                <%= wysiwyg(answer.description) %>
+            <% if answer.description.present? %>
+              <div class="margin-top">
+                <div id="answer_description_<%= answer.id %>" class="answer-description short" data-toggler="short">
+                  <%= wysiwyg(answer.description) %>
+                </div>
+                <div class="read-more">
+                  <button type="button" id="read_more_<%= answer.id %>"
+                          data-toggle="answer_description_<%= answer.id %> read_more_<%= answer.id %> read_less_<%= answer.id %>"
+                          data-toggler="hide">
+                    <%= t("polls.show.read_more", answer: answer.title) %>
+                  </button>
+                  <button type="button" id="read_less_<%= answer.id %>"
+                          data-toggle="answer_description_<%= answer.id %> read_more_<%= answer.id %> read_less_<%= answer.id %>"
+                          data-toggler="hide"
+                          class="hide">
+                    <%= t("polls.show.read_less", answer: answer.title) %>
+                  </button>
+                </div>
               </div>
-              <div class="read-more">
-                <button type="button" id="read_more_<%= answer.id %>"
-                   data-toggle="answer_description_<%= answer.id %> read_more_<%= answer.id %> read_less_<%= answer.id %>"
-                   data-toggler="hide">
-                  <%= t("polls.show.read_more", answer: answer.title) %>
-                </button>
-                <button type="button" id="read_less_<%= answer.id %>"
-                   data-toggle="answer_description_<%= answer.id %> read_more_<%= answer.id %> read_less_<%= answer.id %>"
-                   data-toggler="hide"
-                   class="hide">
-                  <%= t("polls.show.read_less", answer: answer.title) %>
-                </button>
-              </div>
-            </div>
-          <% end %>
+            <% end %>
 
             <% if answer.documents.present? %>
               <div class="document-link">

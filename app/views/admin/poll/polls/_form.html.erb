@@ -99,6 +99,43 @@
   </div>
 
   <div class="row">
+    <%# ---------- Users ---------- %>
+    <div class="project-form-field">
+      <%# Para buscar Debates %>
+      <%= text_field_tag '', nil, placeholder: "Search Users", class: "form-control", style: "border-radius:10px", id: "users-search-form", onkeyup: "SearchFunction()" %>
+      <% if !@project_users.empty? %>
+        <%= f.label t("project.component.actual_delete", item:"Usuarios") %>
+        <p><%= t("project.component.delete", item:"usuarios") %></p>
+        <div id="participant_tags" class="tags scroll">
+          <% @project_users.each do |user| %>
+            <%# <a class="select-participants"><%= page.id%>
+            <span id="span_tags">
+              <input type="checkbox" name="delete_user_ids[]" value=<%= user.id %> />
+              <%= user.username %>(<%= user.email %>)
+            </span>
+          <% end %>
+        </div>
+      <% end %>
+      <% if !@users.empty? %>
+        <br/>
+        <%= f.label t("project.component.actual_add", item:"Usuarios") %>
+        <p><%= t("project.component.add", item:"usuarios") %></p>
+        <%= render "shared/filter_subnav", i18n_namespace: "admin.users.index" %>
+        <div id="participant_tags" class="tags scroll">
+          <% @users.each do |user| %>
+            <%# <a class="select-participants"><%= page.id%>
+            <span id="span_tags">
+              <input type="checkbox" name="user_ids[]" value=<%= user.id %> />
+              <%= user.username %>(<%= user.email %>)
+            </span>
+          <% end %>
+        </div>
+      <% end %>
+    </div>
+    <%# ---------- Fin Users ---------- %>
+  </div>
+
+  <div class="row">
     <div class="clear">
       <div class="small-12 medium-4 large-2 column">
         <%= f.submit t("admin.polls.#{admin_submit_action(@poll)}.submit_button"),

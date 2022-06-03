@@ -111,8 +111,19 @@
     @include breakpoint(large) {
       background: none;
       border: 1px solid $border;
-      border-bottom-color: $body-background;
-      z-index: 1;
+      border-bottom: 0;
+
+      &::after {
+        border-bottom: 1px solid #fefefe;
+        bottom: -1px;
+        left: 0;
+        position: absolute;
+        width: 100%;
+      }
+    }
+
+    &::after {
+      content: "";
     }
   }
 }
@@ -227,6 +238,8 @@
 
       &:hover,
       &:active {
+        //background: $brand;
+        color: black;
         @extend %brand-background;
         text-decoration: none;
       }
@@ -625,6 +638,21 @@
 
         .comments-wrapper {
           position: relative;
+
+          .participation-not-allowed {
+            padding: rem-calc(20) rem-calc(8);
+          }
+        }
+
+        .comment-footer {
+          position: relative;
+
+          .participation-not-allowed {
+            font-size: rem-calc(14);
+            height: rem-calc(50);
+            padding: $line-height / 2;
+            top: -18px;
+          }
         }
 
         .comment-input {
@@ -724,6 +752,22 @@
                   margin-left: rem-calc(4);
                   content: "|";
                 }
+              }
+
+              .icon-like,
+              .icon-unlike {
+                cursor: pointer;
+                color: #c7c7c7;
+
+                &:hover,
+                &:active,
+                &:focus {
+                  color: #838383;
+                }
+              }
+
+              .icon-like {
+                margin-right: rem-calc(4);
               }
             }
           }
@@ -923,6 +967,7 @@
 
 .process-summary {
   > section {
+    @include grid-row;
     margin-top: $line-height * 1.5;
     padding: 0 rem-calc(16);
   }

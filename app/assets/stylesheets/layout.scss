@@ -29,13 +29,17 @@
 // 01. Global styles
 // -----------------
 
+
+//::selection {
+//  color: black;
+//  background-color: $brand;
+
 * {
   @include normal-selection;
 }
 
 html {
   font-size: calc(0.25em + Max(0.75em, 0.75vw));
-
 }
 
 html,
@@ -664,6 +668,9 @@ body > header,
       text-align: left;
 
       @include breakpoint(medium) {
+
+        //background: $brand;
+        color: black;
         @include brand-text;
         background: $body-background;
         text-align: center;
@@ -726,6 +733,7 @@ body > header,
   }
 }
 
+
 // @media (min-width: 1600px) {
 //   .absolute-main {
 //     //background-color: orange;
@@ -740,6 +748,15 @@ body > header,
 //   }
 // }
 
+.menu-icon {
+  &.dark {
+    &:hover::after,
+    &::after {
+      background: black;
+      box-shadow: 0 7px 0 black, 0 14px 0 black;
+    }
+  }
+
 .menu-button {
   border: 1px solid;
   border-radius: $button-radius;
@@ -747,10 +764,11 @@ body > header,
   padding: 0.6em;
 }
 
-.menu-icon {
-  @include hamburger($color: currentcolor, $color-hover: currentcolor);
-  cursor: inherit;
-}
+//.menu-icon {
+//  @include hamburger($color: currentcolor, $color-hover: currentcolor);
+//  cursor: inherit;
+//
+//}
 
 .title-bar {
   background: none;
@@ -763,11 +781,17 @@ body > header,
   }
 
   &.is-active > a {
-    color: inherit;
+    color: black;
   }
 
   &.is-dropdown-submenu-parent > a::after {
-    border-top-color: currentcolor;
+    border-color: black transparent transparent;
+
+  }
+
+  //&.is-dropdown-submenu-parent > a::after {
+  //  border-top-color: currentcolor;
+
   }
 }
 
@@ -2031,6 +2055,21 @@ table {
     }
   }
 
+  .delete-comment {
+    @include has-fa-icon(trash-alt, regular);
+    color: $delete;
+
+    &:hover,
+    &:active {
+      color: $link-hover;
+    }
+
+    &::before {
+      margin-right: $font-icon-margin;
+      transform: translateY(-1px);
+    }
+  }
+
   .comment-user {
     margin-top: $line-height / 4;
     padding: $line-height / 4 0;
@@ -2141,7 +2180,6 @@ table {
 // ---------
 
 .flag-content {
-
   button {
     @include link;
   }
@@ -2523,6 +2561,19 @@ table {
     float: right;
   }
 
+  &:focus {
+    outline: $outline-focus;
+  }
+
+  &[aria-expanded="false"] + form {
+    display: none;
+  }
+}
+
+.related-content-list {
+  list-style-type: none;
+  margin-left: 0;
+
   li {
     border-bottom: 1px solid $border;
     margin-bottom: 0 !important;
@@ -2641,14 +2692,12 @@ table {
 }
 
 .leaflet-bar a {
-
   &.leaflet-disabled {
     color: #525252;
   }
 }
 
 .leaflet-container {
-
   .leaflet-control-attribution {
     background: rgba(255, 255, 255, 0.9);
   }
