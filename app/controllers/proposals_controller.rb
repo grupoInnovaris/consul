@@ -103,10 +103,6 @@ class ProposalsController < ApplicationController
   def create
     @proposal = Proposal.new(proposal_params.merge(author: current_user))
 
-    # JHH:
-    @proposal.save_participants
-    #Fin
-
     if @proposal.save
 
       user_elements = params[:user_ids]

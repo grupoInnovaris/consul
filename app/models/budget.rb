@@ -24,7 +24,7 @@ class Budget < ApplicationRecord
   VOTING_STYLES = %w[knapsack approval].freeze
 
   validates_translation :name, presence: true
-  validates_translation :main_link_url, presence: true, unless: -> { main_link_text.blank? }
+  validates_translation :main_link_url, presence: true, unless: -> { main_link_text.blank? } # Esta línea si la descomento da fallos
   validates :phase, inclusion: { in: ->(*) { Budget::Phase::PHASE_KINDS }}
   validates :currency_symbol, presence: true
   validates :slug, presence: true, format: /\A[a-z0-9\-_]+\z/

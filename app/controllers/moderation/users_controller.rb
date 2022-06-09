@@ -6,6 +6,12 @@ class Moderation::UsersController < Moderation::BaseController
   def index
   end
 
+  def hide_in_moderation_screen
+    block_user
+    flash[:notice] = I18n.t("moderation.users.notice_hide")
+    redirect_to admin_users_path
+  end
+
   def hide
     hide_user
 
