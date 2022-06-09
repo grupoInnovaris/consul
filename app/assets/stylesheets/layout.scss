@@ -59,13 +59,6 @@ body {
   letter-spacing: 2px !important;
   min-height: 100%;
 
-  &.public {
-    @include breakpoint($global-width) {
-      margin-left: $body-margin;
-      margin-right: $body-margin;
-    }
-  }
-
   > .wrapper {
     flex-grow: 1;
   }
@@ -535,7 +528,8 @@ button,
 
 body > header,
 .wrapper > header {
-  @include grid-column-gutter;
+  background: $brand;
+  border-bottom: 1px solid $border;
   margin-bottom: $line-height;
 
   @include breakpoint(small down) {
@@ -553,11 +547,11 @@ body > header,
       padding: rem-calc(6);
 
       [type="submit"] {
-        @include brand-text;
         background: none;
         border: 0;
         cursor: pointer;
         font-weight: bold;
+        color: $brand;
 
         &:hover {
           text-decoration: underline;
@@ -567,8 +561,13 @@ body > header,
   }
 
   .external-links {
+    float: none;
     padding: rem-calc(6) 0;
     text-align: center;
+
+    @include breakpoint(medium) {
+      float: right;
+    }
   }
 }
 
@@ -632,6 +631,7 @@ body > header,
         }
       }
     }
+  }
   @include breakpoint(medium) {
     justify-content: flex-start;
 
@@ -653,8 +653,7 @@ body > header,
     }
 
     a {
-      color: inherit;
-      line-height: inherit;
+      color: black;
       padding-left: 0;
 
       @include breakpoint(medium) {
@@ -669,10 +668,8 @@ body > header,
 
       @include breakpoint(medium) {
 
-        //background: $brand;
+        background: $brand;
         color: black;
-        @include brand-text;
-        background: $body-background;
         text-align: center;
       }
     }
@@ -792,7 +789,7 @@ body > header,
   //&.is-dropdown-submenu-parent > a::after {
   //  border-top-color: currentcolor;
 
-  }
+  //}
 }
 
 .top-links {
