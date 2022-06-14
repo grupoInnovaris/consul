@@ -179,4 +179,8 @@
 .fas.fa-poll{
   @include has-fa-icon(poll, solid);
 }
+
+.fa.fa-envelope-open{
+  @include has-fa-icon(envelope-open, solid);
+}
 // Fin Icons home
