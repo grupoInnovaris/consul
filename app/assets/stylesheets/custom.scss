@@ -162,3 +162,21 @@
   background-color: rgb(255, 98, 0);
 }
 // Fin
+
+// Icons home
+.far.fa-comment{
+  @include has-fa-icon(comment, regular);
+}
+
+.far.fa-comment-alt{
+  @include has-fa-icon(comment-alt, regular);
+}
+
+.far.fa-thumbs-up{
+  @include has-fa-icon(thumbs-up, regular);
+}
+
+.fas.fa-poll{
+  @include has-fa-icon(poll, solid);
+}
+// Fin Icons home
