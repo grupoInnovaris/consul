@@ -160,7 +160,7 @@ class Setting < ApplicationRecord
         "twitter_hashtag": "#grpinnovaris",
         "youtube_handle": "channel/UC_yuidFUJK7pKabqbj66k8g",
         "linkedin_handle": "innovaris-s.l.",
-        "url": "http://example.com", # Public-facing URL of the app.
+        "url": "http://35.234.175.62", # Public-facing URL of the app.
         # CONSUL installation's organization name
         "org_name": "INNCONSUL",
         "meta_title": nil,
